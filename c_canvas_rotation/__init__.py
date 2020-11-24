@@ -209,11 +209,12 @@ class CustomCanvasRotationExtension(Extension):
   def createActions(self, window):
     self.c_canvas_rotation = window.createAction("c_canvas_rotation", "Custom Canvas Rotation")
     self.c_canvas_rotation.setAutoRepeat(False)
+    self.c_canvas_rotation.setCheckable(True)
 
     self.MAFilter = self.mdiAreaFilter()
 
-    @self.c_canvas_rotation.triggered.connect
-    def on_trigger():
+    @self.c_canvas_rotation.toggled.connect
+    def on_toggle():
       global current_active_layer
       global current_active_layer_locked_original
       global angle
