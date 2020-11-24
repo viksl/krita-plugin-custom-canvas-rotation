@@ -133,7 +133,7 @@ class CustomCanvasRotationExtension(Extension):
         super().__init__(parent)
 
     def eventFilter(self, obj, e):
-      if e.type() == QEvent.KeyPress:
+      if e.type() == QEvent.KeyRelease:
         Dialog("KeyPress event key", str(e.key()))
       return False
 
