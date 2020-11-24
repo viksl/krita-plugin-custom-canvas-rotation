@@ -25,7 +25,7 @@ Default shortcut: Ctrl + Alt + D
 
 ## Description:
 
-  - Free plugin for Krita <https://krita.org) -
+  - Free plugin for Krita <https://krita.org>
 
   Krita's canvas rotation is currently bound to the center, which means
   no matter where on screen your cursor is the angle is always calculated
@@ -45,16 +45,17 @@ Default shortcut: Ctrl + Alt + D
   the layer.
 
   Note:
-         Do not misunderstand. This does not rotate the canvas around the
-        cursor, canvas rotation in Krita always works around the centre
-        of your screen, this plugin on introduces a custom gizmo with the
-        rotation.
-        With smaller tablets/screens you might have not noticed a need for
-        this but with larger screen if you work in on a side of your screen
-        and want to rotate the canvas you still have to move the cursor
-        around the centre of the screen which means a huge movemvet across
-        half or the entire screen, this plugin mitigates this as mentioned
-        above.
+
+    Do not misunderstand. This does not rotate the canvas around the
+    cursor, canvas rotation in Krita always works around the centre
+    of your screen, this plugin on introduces a custom gizmo with the
+    rotation.
+    With smaller tablets/screens you might have not noticed a need for
+    this but with larger screen if you work in on a side of your screen
+    and want to rotate the canvas you still have to move the cursor
+    around the centre of the screen which means a huge movemvet across
+    half or the entire screen, this plugin mitigates this as mentioned
+    above.
 
 ## Installation:
 
@@ -94,9 +95,9 @@ Default shortcut: Ctrl + Alt + D
 ## Adjustments you can make if needed:
 
   !IMPORTANT!
-  
+
   Changes you can make manually to this plugin:
-  1. Locate the file __init__.py inside c_canvas_rotation directory.
+  1. Locate the file \_\_init\_\_.py inside c_canvas_rotation directory.
   2. Open in a text editor of your choice.
   3. At the top on lines 74 and 81 you will find constants:
       DISTANCE_BUFFER and TIMER_INTERVAL
