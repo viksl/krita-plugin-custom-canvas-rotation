@@ -154,11 +154,11 @@ class CustomCanvasRotationExtension(Extension):
     self.c_canvas_rotation = window.createAction("c_canvas_rotation", "Custom Canvas Rotation")
     self.c_canvas_rotation.setAutoRepeat(False)
     
-    self.qwin = window.qwindow()
-    self.mdiArea = self.qwin.centralWidget().findChild(QMdiArea)
+    # self.qwin = window.qwindow()
+    # self.mdiArea = self.qwin.centralWidget().findChild(QMdiArea)
 
-    self.mdiAreaFilter = self.mdiAreaFilter()
-    self.mdiArea.installEventFilter(self.mdiAreaFilter)
+    # self.mdiAreaFilter = self.mdiAreaFilter()
+    # self.mdiArea.installEventFilter(self.mdiAreaFilter)
 
     # @self.c_canvas_rotation.triggered.connect
     # def on_trigger():
