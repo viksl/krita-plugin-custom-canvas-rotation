@@ -79,7 +79,7 @@ DISTANCE_BUFFER = 10          # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
                               # In future it might also serve as a reset for canvas reset to facilitate another function related to
                               # canvas rotation.
 
-TIMER_INTERVAL = 30           # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
+TIMER_INTERVAL = 50           # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
                               # Units: Miliseconds
                               # For me 50ms works as minimum value just fine.
                               # (you can go higher, if you need a lot more than this
@@ -145,7 +145,8 @@ def release_timer_timeout():
   buffer_lock = False
   init_offset_angle = 0
   angle = 0
-  current_active_layer.setLocked(current_active_layer_locked_original)
+  if current_active_layer != None:
+    current_active_layer.setLocked(current_active_layer_locked_original)
   current_active_layer = None
 
 # Reset everything back to default state to be ready for next rotation event
