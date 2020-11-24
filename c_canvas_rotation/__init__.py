@@ -98,16 +98,10 @@ cursor_init_position = None                           # Cursor position when cus
 base_vector = [1, 0]                                  # Unit vector as reference to measure angle from
 timer = QTimer()                                      # Handles reset to init state
 timer.setInterval(TIMER_INTERVAL)
+release_timer = QTimer()
+release_timer.setInterval(TIMER_INTERVAL * 2)
+release_timer.setSingleShot(True)
 key_release_lock = False
-# global current_active_layer
-# global current_active_layer_locked_original
-# global angle
-# global buffer_lock
-# global key_release_lock
-# global init_offset_angle
-# global cursor_init_position
-# global base_vector
-# global timer
 
 # Class for testing (replaces a print statement as I don't know how to print on win)
 class Dialog(QDialog):
@@ -132,6 +126,26 @@ def vector_angle(v1, v2):
 
 def two_point_distance(v1, v2):
   return math.sqrt( math.pow(( v2.x() - v1.x() ), 2) + math.pow(( v2.y() - v1.y() ), 2)  )
+
+def release_timer_timeout():
+  global current_active_layer
+  global current_active_layer_locked_original
+  global angle
+  global buffer_lock
+  global key_release_lock
+  global init_offset_angle
+  global cursor_init_position
+  global base_vector
+  global timer
+
+  timer.stop()
+  key_release_lock = True
+  cursor_init_position = None
+  buffer_lock = False
+  init_offset_angle = 0
+  angle = 0
+  current_active_layer.setLocked(current_active_layer_locked_original)
+  current_active_layer = None
 
 # Reset everything back to default state to be ready for next rotation event
 def rotate_timer_timeout():
@@ -169,7 +183,9 @@ def rotate_timer_timeout():
 class CustomCanvasRotationExtension(Extension):
   def __init__(self,parent):
     global timer
+    global release_timer
     timer.timeout.connect(rotate_timer_timeout)
+    release_timer.timeout.connect(release_timer_timeout)
     super(CustomCanvasRotationExtension, self).__init__(parent)
 
   class mdiAreaFilter(QMdiArea):
@@ -177,28 +193,14 @@ class CustomCanvasRotationExtension(Extension):
       super().__init__(parent)
 
     def eventFilter(self, obj, e):
-      global current_active_layer
-      global current_active_layer_locked_original
-      global angle
-      global buffer_lock
-      global key_release_lock
-      global init_offset_angle
-      global cursor_init_position
-      global base_vector
-      global timer
-
-      if key_release_lock:
-        return False
-
+      global release_timer
+      
       if e.type() == QEvent.KeyRelease:
-        timer.stop()
-        key_release_lock = True
-        cursor_init_position = None
-        buffer_lock = False
-        init_offset_angle = 0
-        angle = 0
-        current_active_layer.setLocked(current_active_layer_locked_original)
-        current_active_layer = None
+        if key_release_lock:
+          return False
+
+        if release_timer.isActive():
+          release_timer.start()
         
       return False
 
@@ -223,10 +225,9 @@ class CustomCanvasRotationExtension(Extension):
       global cursor_init_position
       global base_vector
       global timer
-      global key_release_lock
       
       canvas = Krita.instance().activeWindow().activeView().canvas()
-
+      
       # Init custom rotation (vars, timer, active layer reference)
       key_release_lock = False
       cursor_init_position = QCursor.pos()
