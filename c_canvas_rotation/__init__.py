@@ -149,7 +149,7 @@ class CustomCanvasRotationExtension(Extension):
     def on_trigger():
       canvas = Krita.instance().activeWindow().activeView().canvas()
       self.timer.start()
-      Dialog("test", "time")
+
       # Init custom rotation (vars, timer, active layer reference)
       if not self.key_press_lock:
         self.key_press_lock = True
@@ -183,5 +183,6 @@ class CustomCanvasRotationExtension(Extension):
           # Start timer if it's active which means it stops the timer (without triggering
           # timeout event) and starts again. Timer will keep running as long as the
           # shortcut is being pressed
+          Dialog("test", "time")
 
 Krita.instance().addExtension(CustomCanvasRotationExtension(Krita.instance()))
