@@ -126,11 +126,18 @@ Default shortcut: Ctrl + Alt + D
     performance is probably just slow or got stuck by something. If restart of your machine
     doesn't help you can simply increase TIMER_INTERVAL (check the section 5/ above) a bit
     to reduce performance drain.
+- During canvas rotation if the cursor stays too long over icons in GUI Krita gives focus to
+    these icons which loses the focus from the custom canvas rotation event.
+    Solution:   Don't leave the cursor hanging for too long over icons. But
+                It should be jsut a marginal problem since rotating canvas doesn't require
+                use of GUI and rotation usually only happens when over canvas so hopefully
+                not much of an issue, just noting it here just in case.
 
 ## 6/ Possible future updates
 
 - Perhaps an icon to idicate the centre for rotation gizmo (cursor)
 - Utilize buffer area for canas rotation reset
+- Cursor icon maybe
 
 ## 7/ Thanks to
 
