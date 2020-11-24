@@ -191,6 +191,7 @@ class CustomCanvasRotationExtension(Extension):
         return False
 
       if e.type() == QEvent.KeyRelease:
+        Dialog("Release", "event")
         timer.stop()
         key_release_lock = True
         cursor_init_position = None
