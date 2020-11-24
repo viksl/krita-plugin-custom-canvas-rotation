@@ -142,7 +142,7 @@ class CustomCanvasRotationExtension(Extension):
     pass
 
   def createActions(self, window):
-    self.c_canvas_rotation = window.createAction("c_canvas_rotation", "Custom Canvas Rotation")
+    self.c_canvas_rotation = window.createAction("c_canvas_rotation", "Custom Canvas Rotation", "tools/scripts")
     self.c_canvas_rotation.setAutoRepeat(True)
 
     @self.c_canvas_rotation.triggered.connect
