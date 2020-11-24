@@ -71,7 +71,6 @@ from krita import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QTimer
 import math
-import inspect
 
 DISTANCE_BUFFER = 3           # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
                               # Units: Pixels (screen not canvas pixels)
@@ -111,9 +110,6 @@ class Dialog(QDialog):
         self.resize(200, 50)
         self.exec_()
 
-def getInfo(target):
-    [Dialog("Item", item) for item in inspect.getmembers(target) if not item[0].startswith('_')]
-
 class CustomCanvasRotationExtension(Extension):
   def __init__(self,parent):
     self.current_active_layer = None
@@ -132,15 +128,18 @@ class CustomCanvasRotationExtension(Extension):
     self.timer.timeout.connect(self.rotate_timer_timeout)
     super(CustomCanvasRotationExtension, self).__init__(parent)
 
-  class mdiAreaFilter(QMdiArea):
-    def __init__(self, parent=None):
-        super().__init__(parent)
+  # class mdiAreaFilter(QMdiArea):
+  #   def __init__(self, parent=None):
+  #       super().__init__(parent)
 
-    def eventFilter(self, obj, e):
-      # if e.type() == QEvent.KeyRelease:
-      # Dialog("KeyPress event key", str(e.type()))
-      return False
-
+  #   def eventFilter(self, obj, e):
+  #     if e.type() == QEvent.KeyRelease:
+        
+  #     return False
+  def eventFilter(self, obj, e):
+    if e.type() == QEvent.KeyRelease:
+      Dialog("Release", "testFilter")
+      
   # Reset everything back to default state to be ready for next rotation event
   def rotate_timer_timeout(self):
     self.key_press_lock = False
@@ -157,8 +156,7 @@ class CustomCanvasRotationExtension(Extension):
   def createActions(self, window):
     self.c_canvas_rotation = window.createAction("c_canvas_rotation", "Custom Canvas Rotation")
     self.c_canvas_rotation.setAutoRepeat(False)
-    # Dialog("Shortcut", str( self.c_canvas_rotation.shortcut() ))
-    # getInfo(self.c_canvas_rotation.shortcut())
+
     # self.qwin = window.qwindow()
     # self.mdiArea = self.qwin.centralWidget().findChild(QMdiArea)
 
