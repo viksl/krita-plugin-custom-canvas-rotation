@@ -127,8 +127,7 @@ class CustomCanvasRotationExtension(Extension):
     self.timer.setInterval(self.timer_interval)
     self.timer.timeout.connect(self.rotate_timer_timeout)
     super(CustomCanvasRotationExtension, self).__init__(parent)
-    Dialog("Shortcut?", str( self.shortcut() ))
-    
+
   class mdiAreaFilter(QMdiArea):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -154,7 +153,7 @@ class CustomCanvasRotationExtension(Extension):
   def createActions(self, window):
     self.c_canvas_rotation = window.createAction("c_canvas_rotation", "Custom Canvas Rotation")
     self.c_canvas_rotation.setAutoRepeat(False)
-    
+    Dialog("Shortcut", str( self.c_canvas_rotation.shortcut() ))
     # self.qwin = window.qwindow()
     # self.mdiArea = self.qwin.centralWidget().findChild(QMdiArea)
 
