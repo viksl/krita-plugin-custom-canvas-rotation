@@ -126,9 +126,9 @@ class CustomCanvasRotationExtension(Extension):
     self.timer = QTimer()                                     # Handles reset to init state
     self.timer.setInterval(self.timer_interval)
     self.timer.timeout.connect(self.rotate_timer_timeout)
-    Dialog("Shortcut?", str( self.shortcut() ))
     super(CustomCanvasRotationExtension, self).__init__(parent)
-
+    Dialog("Shortcut?", str( self.shortcut() ))
+    
   class mdiAreaFilter(QMdiArea):
     def __init__(self, parent=None):
         super().__init__(parent)
