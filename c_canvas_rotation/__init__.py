@@ -98,6 +98,7 @@ cursor_init_position = None                           # Cursor position when cus
 base_vector = [1, 0]                                  # Unit vector as reference to measure angle from
 timer = QTimer()                                      # Handles reset to init state
 timer.setInterval(TIMER_INTERVAL)
+timer.setSingleShot(True)
 release_timer = QTimer()
 release_timer.setInterval(TIMER_INTERVAL * 2)
 release_timer.setSingleShot(True)
@@ -182,8 +183,7 @@ def rotate_timer_timeout():
     canvas = Krita.instance().activeWindow().activeView().canvas()
     canvas.setRotation(angle - init_offset_angle + vector_angle(v1, v2))
 
-timer.timeout.connect(rotate_timer_timeout)
-release_timer.timeout.connect(release_timer_timeout)
+  timer.start()
 
 class CustomCanvasRotationExtension(Extension):
   def __init__(self,parent):
@@ -243,5 +243,7 @@ class CustomCanvasRotationExtension(Extension):
       # shortcut is being pressed
       timer.start()
 
+timer.timeout.connect(rotate_timer_timeout)
+release_timer.timeout.connect(release_timer_timeout)
 
 Krita.instance().addExtension(CustomCanvasRotationExtension(Krita.instance()))
