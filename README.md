@@ -1,4 +1,5 @@
 # krita-plugin-custom-canvas-rotaion
+
 Author: viksl
 Github: https://github.com/viksl
 Github for this project: https://github.com/viksl/krita-plugin-custom-canvas-rotaion
@@ -10,7 +11,9 @@ Copyright: (C) viksl
 Date: 25.11.2020
 Version: 1.0
 Default shortcut: Ctrl + Alt + D
-##Description:
+
+## Description:
+
   - Free plugin for Krita <https://krita.org) -
   Krita's canvas rotation is currently bound to the center, which means
   no matter where on screen your cursor is the angle is always calculated
@@ -39,7 +42,8 @@ Default shortcut: Ctrl + Alt + D
         half or the entire screen, this plugin mitigates this as mentioned
         above.
 
-##Installation:
+## Installation:
+
     1. Download this plugin from:
         https://github.com/viksl/krita-plugin-custom-canvas-rotaion
         (on the right side there's a green button label Code, press it
@@ -69,10 +73,12 @@ Default shortcut: Ctrl + Alt + D
                 Change the shortcut to whatever you like
                 (default is Ctrl + Alt + D)
 
-##How to use:
+## How to use:
+
     PRESS and HOLD the shortcut, move the cursor around to rotate the canvas.
 
-##Adjustments you can make if needed:
+## Adjustments you can make if needed:
+
   !IMPORTANT!
   Changes you can make manually to this plugin:
   1. Locate the file __init__.py inside c_canvas_rotation directory.
