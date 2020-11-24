@@ -1,9 +1,43 @@
-# Author: viksl
-# Github: https://github.com/viksl
-# Github for this project: 
-# Licence: 
-# Date: 24.11.2020
-# Version 1.0
+"""
+Author: viksl
+Github: https://github.com/viksl
+Github for this project: 
+Licence:  See file LICENSE
+          GNU GENERAL PUBLIC LICENSE
+          Version 3
+          <https://www.gnu.org/licenses/>
+Date: 25.11.2020
+Version: 1.0
+Description:
+  - Free plugin for Krita <https://krita.org) -
+  Krita's canvas rotation is currently bound to the center, which means
+  no matter where on screen your cursor is the angle is always calculated
+  towards the screen/window centre. This means that to rotate cans the
+  cursor has to move across the whole screen for a full 360° rotation
+  or you have to move the cursor closer to the center of the screen
+  to use shorter circular movement for the rotation.
+  This plugin introduces a new shortcut and a semi-new function which
+  utilizes Krita's original canvas rotation but instead of having 
+  window/screen as a centre for the rotation gizmo the cursor's position
+  at the moment of shortcut activation is utilized as the gizmo's centre.
+
+  Current active layer gets locked to avoid any accidental strokes during
+  the rotation. The layer's original state (lock) is stored and restored
+  after the rotation automatically there's no need to manually lock/unlock
+  the layer.
+
+  Note: Do not misunderstand. This does not rotate the canvas around the
+        cursor, canvas rotation in Krita always works around the centre
+        of your screen, this plugin on introduces a custom gizmo with the
+        rotation.
+        With smaller tablets/screens you might have not noticed a need for
+        this but with larger screen if you work in on a side of your screen
+        and want to rotate the canvas you still have to move the cursor
+        around the centre of the screen which means a huge movemvet across
+        half or the entire screen, this plugin mitigates this as mentioned
+        above.
+Copyright: (C) viksl
+"""
 
 from krita import *
 from PyQt5.QtWidgets import *
