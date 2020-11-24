@@ -26,6 +26,7 @@ Default shortcut: Ctrl + Alt + D
 ## 1/ Description:
 
   - Free plugin for Krita (<https://krita.org>)
+  - Youtube video (https://youtu.be/tfZ2WgdKL-0)
 
   Krita's canvas rotation is currently bound to the center, which means
   no matter where on screen your cursor is the angle is always calculated
