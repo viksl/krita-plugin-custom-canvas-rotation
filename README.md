@@ -1,26 +1,38 @@
 # krita-plugin-custom-canvas-rotaion
 
 Author: viksl
+
 Github: https://github.com/viksl
+
 Github for this project: https://github.com/viksl/krita-plugin-custom-canvas-rotaion
+
 Licence:  See file LICENSE
+
           GNU GENERAL PUBLIC LICENSE
+
           Version 3
+          
           <https://www.gnu.org/licenses/>
+
 Copyright: (C) viksl
+
 Date: 25.11.2020
+
 Version: 1.0
+
 Default shortcut: Ctrl + Alt + D
 
 ## Description:
 
   - Free plugin for Krita <https://krita.org) -
+
   Krita's canvas rotation is currently bound to the center, which means
   no matter where on screen your cursor is the angle is always calculated
   towards the screen/window centre. This means that to rotate cans the
   cursor has to move across the whole screen for a full 360° rotation
   or you have to move the cursor closer to the center of the screen
   to use shorter circular movement for the rotation.
+
   This plugin introduces a new shortcut and a semi-new function which
   utilizes Krita's original canvas rotation but instead of having 
   window/screen as a centre for the rotation gizmo the cursor's position
@@ -31,7 +43,8 @@ Default shortcut: Ctrl + Alt + D
   after the rotation automatically there's no need to manually lock/unlock
   the layer.
 
-  Note: Do not misunderstand. This does not rotate the canvas around the
+  Note:
+         Do not misunderstand. This does not rotate the canvas around the
         cursor, canvas rotation in Krita always works around the centre
         of your screen, this plugin on introduces a custom gizmo with the
         rotation.
