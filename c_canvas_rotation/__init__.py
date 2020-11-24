@@ -98,7 +98,6 @@ cursor_init_position = None                           # Cursor position when cus
 base_vector = [1, 0]                                  # Unit vector as reference to measure angle from
 timer = QTimer()                                      # Handles reset to init state
 timer.setInterval(TIMER_INTERVAL)
-timer.setSingleShot(True)
 release_timer = QTimer()
 release_timer.setInterval(TIMER_INTERVAL * 2)
 release_timer.setSingleShot(True)
@@ -140,6 +139,8 @@ def release_timer_timeout():
   global timer
 
   timer.stop()
+  Dialog("timer state", timer.active())
+  Dialog("timer time", timer.remainingTime())
   key_release_lock = True
   cursor_init_position = None
   buffer_lock = False
@@ -200,7 +201,7 @@ class CustomCanvasRotationExtension(Extension):
         if key_release_lock:
           return False
 
-        if release_timer.isActive():
+        if release_timer.remainingTime() > 0:
           release_timer.start()
         
       return False
