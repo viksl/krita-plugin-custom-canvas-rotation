@@ -158,7 +158,7 @@ class CustomCanvasRotationExtension(Extension):
     self.mdiArea = self.qwin.centralWidget().findChild(QMdiArea)
 
     self.mdiAreaFilter = self.mdiAreaFilter()
-    self.mdiAreaFilter.installEventFilter(self.mdiAreaFilter)
+    self.mdiArea.installEventFilter(self.mdiAreaFilter)
 
     # @self.c_canvas_rotation.triggered.connect
     # def on_trigger():
