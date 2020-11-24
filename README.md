@@ -122,6 +122,11 @@ Default shortcut: Ctrl + Alt + D
       for 1 whole second until you can rotate again which I believe doesn't
       really make sense for anyone but I'm leaving this note here just in case)
 
+## Possible future update
+
+- Perhaps an icon to idicate the centre for rotation gizmo (cursor)
+- Utilize buffer area for canas rotation reset
+
 ## Thanks to
 
 wojtryb (<https://krita-artists.org/u/wojtryb>)
