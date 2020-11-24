@@ -8,11 +8,8 @@ Github for this project: https://github.com/viksl/krita-plugin-custom-canvas-rot
 
 Licence:  
     See file LICENSE
-
     GNU GENERAL PUBLIC LICENSE
-
     Version 3
-
     <https://www.gnu.org/licenses/>
 
 Copyright: (C) viksl
