@@ -122,3 +122,8 @@ Default shortcut: Ctrl + Alt + D
       for 1 whole second until you can rotate again which I believe doesn't
       really make sense for anyone but I'm leaving this note here just in case)
 
+## Thanks to
+wojtryb (<https://krita-artists.org/u/wojtryb>)
+EyeOdin (<https://krita-artists.org/u/EyeOdin>)
+
+For helping me better understand pyqt and python
