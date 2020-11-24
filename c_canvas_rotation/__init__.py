@@ -128,7 +128,7 @@ class CustomCanvasRotationExtension(Extension):
     self.timer.timeout.connect(self.rotate_timer_timeout)
     super(CustomCanvasRotationExtension, self).__init__(parent)
 
-  class mdiAreaFilter(Qwindow):
+  class mdiAreaFilter(QWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
 
