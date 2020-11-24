@@ -128,7 +128,7 @@ class CustomCanvasRotationExtension(Extension):
     self.timer.timeout.connect(self.rotate_timer_timeout)
     super(CustomCanvasRotationExtension, self).__init__(parent)
 
-  class mdiAreaFilter(QWindow):
+  class mdiAreaFilter(QMdiArea):
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -158,7 +158,7 @@ class CustomCanvasRotationExtension(Extension):
     self.mdiArea = self.qwin.centralWidget().findChild(QMdiArea)
 
     self.mdiAreaFilter = self.mdiAreaFilter()
-    self.qwin.installEventFilter(self.mdiAreaFilter)
+    self.mdiAreaFilter.installEventFilter(self.mdiAreaFilter)
 
     # @self.c_canvas_rotation.triggered.connect
     # def on_trigger():
