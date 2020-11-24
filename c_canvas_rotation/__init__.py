@@ -163,6 +163,7 @@ def rotate_timer_timeout():
     v1 = [base_vector[0] - cursor_init_position.x(), base_vector[1] - cursor_init_position.y()]
     v2 = [QCursor.pos().x() - cursor_init_position.x(), QCursor.pos().y() - cursor_init_position.y()]
     
+    canvas = Krita.instance().activeWindow().activeView().canvas()
     canvas.setRotation(angle - init_offset_angle + vector_angle(v1, v2))
 
 class CustomCanvasRotationExtension(Extension):
