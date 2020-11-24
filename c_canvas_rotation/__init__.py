@@ -138,8 +138,6 @@ def release_timer_timeout():
   global base_vector
   global timer
 
-  Dialog("timer state", timer.isActive())
-  Dialog("timer time", timer.remainingTime())
   timer.stop()
 
   key_release_lock = True
@@ -198,13 +196,10 @@ class CustomCanvasRotationExtension(Extension):
       global release_timer
       
       if e.type() == QEvent.KeyRelease:
-        Dialog("timer state", release_timer.isActive())
-        Dialog("timer time", release_timer.remainingTime())
         if key_release_lock:
           return False
 
-        if release_timer.remainingTime() > 0:
-          release_timer.start()
+        release_timer.start()
         
       return False
 
