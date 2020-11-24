@@ -162,7 +162,6 @@ class CustomCanvasRotationExtension(Extension):
         if not self.buffer_lock:
           # Distance from initial point (cursor position trigger event was onvoked from)
           # to cursor's current position
-          Dialog("test", "time")
           distance = two_point_distance(self.cursor_init_position, QCursor.pos())
           
           # If cursor outside buffer zone start immediately calculate initial offset angle
