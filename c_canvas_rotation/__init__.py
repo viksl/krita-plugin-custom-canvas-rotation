@@ -127,67 +127,67 @@ def vector_angle(v1, v2):
 def two_point_distance(v1, v2):
   return math.sqrt( math.pow(( v2.x() - v1.x() ), 2) + math.pow(( v2.y() - v1.y() ), 2)  )
 
-def release_timer_timeout():
-  global current_active_layer
-  global current_active_layer_locked_original
-  global angle
-  global buffer_lock
-  global key_release_lock
-  global init_offset_angle
-  global cursor_init_position
-  global base_vector
-  global timer
+# def release_timer_timeout():
+#   global current_active_layer
+#   global current_active_layer_locked_original
+#   global angle
+#   global buffer_lock
+#   global key_release_lock
+#   global init_offset_angle
+#   global cursor_init_position
+#   global base_vector
+#   global timer
 
-  timer.stop()
-  Dialog("timer state", timer.active())
-  Dialog("timer time", timer.remainingTime())
-  key_release_lock = True
-  cursor_init_position = None
-  buffer_lock = False
-  init_offset_angle = 0
-  angle = 0
-  current_active_layer.setLocked(current_active_layer_locked_original)
-  current_active_layer = None
+#   Dialog("timer state", timer.active())
+#   Dialog("timer time", timer.remainingTime())
+#   timer.stop()
 
-# Reset everything back to default state to be ready for next rotation event
-def rotate_timer_timeout():
-  global current_active_layer
-  global current_active_layer_locked_original
-  global angle
-  global buffer_lock
-  global init_offset_angle
-  global cursor_init_position
-  global base_vector
-  global timer
+#   key_release_lock = True
+#   cursor_init_position = None
+#   buffer_lock = False
+#   init_offset_angle = 0
+#   angle = 0
+#   current_active_layer.setLocked(current_active_layer_locked_original)
+#   current_active_layer = None
 
-  if not buffer_lock:
-    # Distance from initial point (cursor position trigger event was onvoked from)
-    # to cursor's current position
-    distance = two_point_distance(cursor_init_position, QCursor.pos())
+# # Reset everything back to default state to be ready for next rotation event
+# def rotate_timer_timeout():
+#   global current_active_layer
+#   global current_active_layer_locked_original
+#   global angle
+#   global buffer_lock
+#   global init_offset_angle
+#   global cursor_init_position
+#   global base_vector
+#   global timer
+
+#   if not buffer_lock:
+#     # Distance from initial point (cursor position trigger event was onvoked from)
+#     # to cursor's current position
+#     distance = two_point_distance(cursor_init_position, QCursor.pos())
     
-    # If cursor outside buffer zone start immediately calculate initial offset angle
-    # to ensure smooth transition when changing angles in followint passes
-    if distance > DISTANCE_BUFFER:
-      buffer_lock = True
+#     # If cursor outside buffer zone start immediately calculate initial offset angle
+#     # to ensure smooth transition when changing angles in followint passes
+#     if distance > DISTANCE_BUFFER:
+#       buffer_lock = True
 
-      v1 = [base_vector[0] - cursor_init_position.x(), base_vector[1] - cursor_init_position.y()]
-      v2 = [QCursor.pos().x() - cursor_init_position.x(), QCursor.pos().y() - cursor_init_position.y()]
+#       v1 = [base_vector[0] - cursor_init_position.x(), base_vector[1] - cursor_init_position.y()]
+#       v2 = [QCursor.pos().x() - cursor_init_position.x(), QCursor.pos().y() - cursor_init_position.y()]
       
-      init_offset_angle = vector_angle(v1, v2)
-  elif buffer_lock:
-    # This handles the canvas rotation itself
-    v1 = [base_vector[0] - cursor_init_position.x(), base_vector[1] - cursor_init_position.y()]
-    v2 = [QCursor.pos().x() - cursor_init_position.x(), QCursor.pos().y() - cursor_init_position.y()]
+#       init_offset_angle = vector_angle(v1, v2)
+#   elif buffer_lock:
+#     # This handles the canvas rotation itself
+#     v1 = [base_vector[0] - cursor_init_position.x(), base_vector[1] - cursor_init_position.y()]
+#     v2 = [QCursor.pos().x() - cursor_init_position.x(), QCursor.pos().y() - cursor_init_position.y()]
     
-    canvas = Krita.instance().activeWindow().activeView().canvas()
-    canvas.setRotation(angle - init_offset_angle + vector_angle(v1, v2))
+#     canvas = Krita.instance().activeWindow().activeView().canvas()
+#     canvas.setRotation(angle - init_offset_angle + vector_angle(v1, v2))
+
+# timer.timeout.connect(rotate_timer_timeout)
+# release_timer.timeout.connect(release_timer_timeout)
 
 class CustomCanvasRotationExtension(Extension):
   def __init__(self,parent):
-    global timer
-    global release_timer
-    timer.timeout.connect(rotate_timer_timeout)
-    release_timer.timeout.connect(release_timer_timeout)
     super(CustomCanvasRotationExtension, self).__init__(parent)
 
   class mdiAreaFilter(QMdiArea):
@@ -198,6 +198,8 @@ class CustomCanvasRotationExtension(Extension):
       global release_timer
       
       if e.type() == QEvent.KeyRelease:
+        Dialog("timer state", release_timer.active())
+        Dialog("timer time", release_timer.remainingTime())
         if key_release_lock:
           return False
 
