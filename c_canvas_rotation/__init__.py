@@ -8,6 +8,7 @@ Licence:  See file LICENSE
           <https://www.gnu.org/licenses/>
 Date: 25.11.2020
 Version: 1.0
+Default shortcut: Ctrl + Alt + D
 Description:
   - Free plugin for Krita <https://krita.org) -
   Krita's canvas rotation is currently bound to the center, which means
