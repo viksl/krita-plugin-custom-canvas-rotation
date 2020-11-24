@@ -44,7 +44,7 @@ Default shortcut: Ctrl + Alt + D
   after the rotation automatically there's no need to manually lock/unlock
   the layer.
 
-  Note:
+    Note:
 
     Do not misunderstand. This does not rotate the canvas around the
     cursor, canvas rotation in Krita always works around the centre
