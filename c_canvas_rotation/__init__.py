@@ -72,8 +72,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QTimer
 import math
 
-DISTANCE_BUFFER = 3          # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
-                              # Units: Pixels (screen not canvas pixels)
+DISTANCE_BUFFER = 5          # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
+                              # Units: Pixels
                               # How far (in pixels) you need to move your cursor for rotation to take effect (only initially).
                               # It makes the transition from not changin rotation to changing it a bit smoother (around 0 <- initial poin)
                               # In future it might also serve as a reset for canvas reset to facilitate another function related to
