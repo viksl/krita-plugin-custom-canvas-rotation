@@ -49,21 +49,11 @@ Description:
       cursor leaves this area for the first time (after that the area
       is disabled and the rotation is allowed everywhere)
   5.  Increase/decrease (can't be negative!) TIMER_INTERVAL (milliseconds)
-      to increase/decrease how quickly you can rotate the canvas again
-      minimum value is set to 50 milliseconds (ms) which works just fine for
-      my system but you might need to increase it.
-      Don't go to low with this as if the timer gets shorter then a tick of
-      Krita's event loop the rotation won't work (you won't experiecen any
-      error as the code works just fine but the window for rotation would
-      be soo short that it ends before you can move your cursor)
-      50 ms = 0.050 s which is a very short time so you won't notice any
-      possible "lag", even increasing to 100 ms (= 0.100 s) you will be just
-      fine, feel free to adjust to anything that works for you.
-      I suggest to keep it at 50 ms if the rotation works since increasing it
-      can eventually lead to intrusive lag-like experience (for example
-      if you set the value to 1000 ms = 1 s which means you will have to wait
-      for 1 whole second until you can rotate again which I believe doesn't
-      really make sense for anyone but I'm leaving this note here just in case)
+      to increase/decrease how smooth the ccustom canvas rotaion is.
+      The lower the smoother experience but more cpu intensive (overall it's not a very expensive process
+      so you are fine with going half way down if you feel like it)
+      Don't go to much towards 0 if possible since at very low rates you can get to the moment when
+      krita event loop is as fast as this timer and the rotation will thus fail
 Copyright: (C) viksl
 """
 
@@ -72,37 +62,39 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QTimer
 import math
 
-DISTANCE_BUFFER = 10          # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
-                              # Units: Pixels (screen not canvas pixels)
-                              # How far (in pixels) you need to move your cursor for rotation to take effect (only initially).
-                              # It makes the transition from not changin rotation to changing it a bit smoother (around 0 <- initial poin)
-                              # In future it might also serve as a reset for canvas reset to facilitate another function related to
-                              # canvas rotation.
+DISTANCE_BUFFER = 10                                  # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
+                                                      # Units: Pixels (screen not canvas pixels)
+                                                      # Warning: Cannot be negative!
+                                                      # How far (in pixels) you need to move your cursor for rotation to take effect (only initially).
+                                                      # It makes the transition from not changin rotation to changing it a bit smoother (around 0 <- initial poin)
+                                                      # In future it might also serve as a reset for canvas reset to facilitate another function related to
+                                                      # canvas rotation.
 
-TIMER_INTERVAL = 50           # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
-                              # Units: Miliseconds
-                              # For me 50ms works as minimum value just fine.
-                              # (you can go higher, if you need a lot more than this
-                              # there might be other problems interfering with your program), anything below
-                              # may cause the plugin seem unreactive (timer ends sooned than Krita can actually deal with the methods)
+TIMER_INTERVAL = 50                                   # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
+                                                      # Units: Miliseconds
+                                                      # Warning: Cannot be negative!
+                                                      # The lower the smoother experience but more cpu intensive (overall it's not a very expensive process
+                                                      # so you are fine with going half way down if you feel like it)
+                                                      # Don't go to much towards 0 if possible since at very low rates you can get to the moment when
+                                                      # krita event loop is as fast as this timer and the rotation will thus fail
 
 current_active_layer = None
 current_active_layer_locked_original = False
 angle = 0                                             # Current canvas rotation
 buffer_lock = False                                   # After cursor moves out of buffer area removes the buffer condition
-key_release_lock = True                              # Locks initial key press (sets initial values for trigger event only at the
-                                                      # beginning of the event, these values are reset in the timeout method of the timer below)
+key_release_lock = True                               # Locks key relese event out when it's not needed to go through the whole event code
 init_offset_angle = 0                                 # An angle to keep smooth transition
                                                       # (vectors: v1 = base_vector - init; v2 = cursor (immediately after leaving buffer area) - init)
 cursor_init_position = None                           # Cursor position when custom rotation invokation begins
 base_vector = [1, 0]                                  # Unit vector as reference to measure angle from
-timer = QTimer()                                      # Handles reset to init state
+timer = QTimer()                                      # Custom Canvas Rotation main event loop
 timer.setInterval(TIMER_INTERVAL)
 timer.setSingleShot(True)
-release_timer = QTimer()
+release_timer = QTimer()                              # Escape timer from timer event above (acts basically as a key release since key release is repeating
+                                                      # as long as a key is down I had to go with a timer to overcome it)
 release_timer.setInterval(TIMER_INTERVAL * 2)
 release_timer.setSingleShot(True)
-timer_lock = False
+timer_lock = False                                    # Locks out unnecessary use of the timer
 
 # Class for testing (replaces a print statement as I don't know how to print on win)
 class Dialog(QDialog):
@@ -238,9 +230,6 @@ class CustomCanvasRotationExtension(Extension):
       current_active_layer_locked_original = current_active_layer.locked()
       current_active_layer.setLocked(True)
 
-      # Start timer if it's active which means it stops the timer (without triggering
-      # timeout event) and starts again. Timer will keep running as long as the
-      # shortcut is being pressed
       timer.start()
 
 timer.timeout.connect(rotate_timer_timeout)

@@ -106,25 +106,13 @@ Default shortcut: Ctrl + Alt + D
       cursor leaves this area for the first time (after that the area
       is disabled and the rotation is allowed everywhere)
   5.  Increase/decrease (can't be negative!) TIMER_INTERVAL (milliseconds)
-      to increase/decrease how quickly you can rotate the canvas again
-      minimum value is set to 50 milliseconds (ms) which works just fine for
-      my system but you might need to increase it.
-      Don't go to low with this as if the timer gets shorter then a tick of
-      Krita's event loop the rotation won't work (you won't experiecen any
-      error as the code works just fine but the window for rotation would
-      be soo short that it ends before you can move your cursor)
-      50 ms = 0.050 s which is a very short time so you won't notice any
-      possible "lag", even increasing to 100 ms (= 0.100 s) you will be just
-      fine, feel free to adjust to anything that works for you.
-      I suggest to keep it at 50 ms if the rotation works since increasing it
-      can eventually lead to intrusive lag-like experience (for example
-      if you set the value to 1000 ms = 1 s which means you will have to wait
-      for 1 whole second until you can rotate again which I believe doesn't
-      really make sense for anyone but I'm leaving this note here just in case)
+      to increase/decrease how smooth the ccustom canvas rotaion is.
+      The lower the smoother experience but more cpu intensive (overall it's not a very expensive process
+      so you are fine with going half way down if you feel like it)
+      Don't go to much towards 0 if possible since at very low rates you can get to the moment when
+      krita event loop is as fast as this timer and the rotation will thus fail
 
 ## 5/ Known Issues
-- There's a slight delay at the beginning
-    No solution so far
 - A red crossed circle might appear while rotating the canvas (or may hang around after)
     Solution:   This it not a problem but a feature. This tells you the layer is locked
                 so you know you can't draw on it. Krita doesn't do update when the lock
@@ -137,13 +125,6 @@ Default shortcut: Ctrl + Alt + D
     performance is probably just slow or got stuck by something. If restart of your machine
     doesn't help you can simply increase TIMER_INTERVAL (check the section 5/ above) a bit
     to reduce performance drain.
-- I can't guarantee this plugin will work with pen buttons and/or tablet buttons.
-    Since this plugin uses PyQt/Krita buil-it key repeat there's a possibility that
-    some pen buttons and/or tablet/dispaly buttons don't offer this feature and
-    only utilize keyPress/KeyRelease event (or only keyPress) once with button press.
-    This could be worked around with keyPress and keyRelease PyQt but so far I
-    haven't found a way to make this work in Krita (not with default shortcuts).
-    Keyboards should work just fine for the shortcut
 
 ## 6/ Possible future updates
 
