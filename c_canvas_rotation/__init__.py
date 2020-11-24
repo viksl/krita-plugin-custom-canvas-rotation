@@ -163,7 +163,7 @@ class CustomCanvasRotationExtension(Extension):
           # Distance from initial point (cursor position trigger event was onvoked from)
           # to cursor's current position
           distance = two_point_distance(self.cursor_init_position, QCursor.pos())
-          
+          Dialog("test", "time")
           # If cursor outside buffer zone start immediately calculate initial offset angle
           # to ensure smooth transition when changing angles in followint passes
           if distance > DISTANCE_BUFFER:
@@ -183,6 +183,6 @@ class CustomCanvasRotationExtension(Extension):
           # Start timer if it's active which means it stops the timer (without triggering
           # timeout event) and starts again. Timer will keep running as long as the
           # shortcut is being pressed
-          Dialog("test", "time")
+          
 
 Krita.instance().addExtension(CustomCanvasRotationExtension(Krita.instance()))
