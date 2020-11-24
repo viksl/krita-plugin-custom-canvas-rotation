@@ -98,10 +98,11 @@ cursor_init_position = None                           # Cursor position when cus
 base_vector = [1, 0]                                  # Unit vector as reference to measure angle from
 timer = QTimer()                                      # Handles reset to init state
 timer.setInterval(TIMER_INTERVAL)
+timer.setSingleShot(True)
 release_timer = QTimer()
 release_timer.setInterval(TIMER_INTERVAL * 2)
 release_timer.setSingleShot(True)
-key_release_lock = False
+timer_lock = False
 
 # Class for testing (replaces a print statement as I don't know how to print on win)
 class Dialog(QDialog):
@@ -225,11 +226,13 @@ class CustomCanvasRotationExtension(Extension):
       global cursor_init_position
       global base_vector
       global timer
-      
+      global timer_lock
+
       canvas = Krita.instance().activeWindow().activeView().canvas()
       
       # Init custom rotation (vars, timer, active layer reference)
       key_release_lock = False
+      timer_lock = False
       cursor_init_position = QCursor.pos()
       angle = canvas.rotation()
       current_active_layer = Krita.instance().activeDocument().activeNode()
