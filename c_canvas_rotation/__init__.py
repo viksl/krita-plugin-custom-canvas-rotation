@@ -157,6 +157,7 @@ class CustomCanvasRotationExtension(Extension):
         self.current_active_layer = Krita.instance().activeDocument().activeNode()
         self.current_active_layer_locked_original = self.current_active_layer.locked()
         self.current_active_layer.setLocked(True)
+        self.timer.start()
       else:
         if not self.buffer_lock:
           # Distance from initial point (cursor position trigger event was onvoked from)
