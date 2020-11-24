@@ -157,6 +157,7 @@ class CustomCanvasRotationExtension(Extension):
         self.current_active_layer = Krita.instance().activeDocument().activeNode()
         self.current_active_layer_locked_original = self.current_active_layer.locked()
         self.current_active_layer.setLocked(True)
+        self.timer.start()
       # else:
       if not self.buffer_lock:
         # Distance from initial point (cursor position trigger event was onvoked from)
@@ -172,7 +173,7 @@ class CustomCanvasRotationExtension(Extension):
           v2 = [QCursor.pos().x() - self.cursor_init_position.x(), QCursor.pos().y() - self.cursor_init_position.y()]
           
           self.init_offset_angle = vector_angle(v1, v2)
-      elif self.buffer_lock:
+      if self.buffer_lock:
         # This handles the canvas rotation itself
         v1 = [self.base_vector[0] - self.cursor_init_position.x(), self.base_vector[1] - self.cursor_init_position.y()]
         v2 = [QCursor.pos().x() - self.cursor_init_position.x(), QCursor.pos().y() - self.cursor_init_position.y()]
