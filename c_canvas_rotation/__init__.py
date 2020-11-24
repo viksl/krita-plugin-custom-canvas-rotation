@@ -121,6 +121,18 @@ class Dialog(QDialog):
       self.resize(200, 50)
       self.exec_()
 
+def dot_product(v1, v2):
+  return v1[0] * v2[0] + v1[1] * v2[1]
+
+def determinant(v1, v2):
+  return v1[0] * v2[1] - v1[1] * v2[0]
+
+def vector_angle(v1, v2):
+  return  math.degrees( math.atan2(determinant(v1, v2), dot_product(v1, v2)) )
+
+def two_point_distance(v1, v2):
+  return math.sqrt( math.pow(( v2.x() - v1.x() ), 2) + math.pow(( v2.y() - v1.y() ), 2)  )
+
 # Reset everything back to default state to be ready for next rotation event
 def rotate_timer_timeout(self):
   global current_active_layer
@@ -135,7 +147,7 @@ def rotate_timer_timeout(self):
   if not buffer_lock:
     # Distance from initial point (cursor position trigger event was onvoked from)
     # to cursor's current position
-    distance = self.two_point_distance(cursor_init_position, QCursor.pos())
+    distance = two_point_distance(cursor_init_position, QCursor.pos())
     
     # If cursor outside buffer zone start immediately calculate initial offset angle
     # to ensure smooth transition when changing angles in followint passes
@@ -145,13 +157,13 @@ def rotate_timer_timeout(self):
       v1 = [base_vector[0] - cursor_init_position.x(), base_vector[1] - cursor_init_position.y()]
       v2 = [QCursor.pos().x() - cursor_init_position.x(), QCursor.pos().y() - cursor_init_position.y()]
       
-      init_offset_angle = self.vector_angle(v1, v2)
+      init_offset_angle = vector_angle(v1, v2)
   elif buffer_lock:
     # This handles the canvas rotation itself
     v1 = [base_vector[0] - cursor_init_position.x(), base_vector[1] - cursor_init_position.y()]
     v2 = [QCursor.pos().x() - cursor_init_position.x(), QCursor.pos().y() - cursor_init_position.y()]
     
-    canvas.setRotation(angle - init_offset_angle + self.vector_angle(v1, v2))
+    canvas.setRotation(angle - init_offset_angle + vector_angle(v1, v2))
 
 class CustomCanvasRotationExtension(Extension):
   def __init__(self,parent):
@@ -188,18 +200,6 @@ class CustomCanvasRotationExtension(Extension):
         current_active_layer = None
         
       return False
-
-  def dot_product(v1, v2):
-    return v1[0] * v2[0] + v1[1] * v2[1]
-
-  def determinant(v1, v2):
-    return v1[0] * v2[1] - v1[1] * v2[0]
-
-  def vector_angle(v1, v2):
-    return  math.degrees( math.atan2(determinant(v1, v2), dot_product(v1, v2)) )
-
-  def two_point_distance(v1, v2):
-    return math.sqrt( math.pow(( v2.x() - v1.x() ), 2) + math.pow(( v2.y() - v1.y() ), 2)  )
 
   def setup(self):
     pass
