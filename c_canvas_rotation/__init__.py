@@ -148,6 +148,7 @@ class CustomCanvasRotationExtension(Extension):
     @self.c_canvas_rotation.triggered.connect
     def on_trigger():
       canvas = Krita.instance().activeWindow().activeView().canvas()
+      self.timer.start()
 
       # Init custom rotation (vars, timer, active layer reference)
       if not self.key_press_lock:
@@ -156,8 +157,7 @@ class CustomCanvasRotationExtension(Extension):
         self.angle = canvas.rotation()
         self.current_active_layer = Krita.instance().activeDocument().activeNode()
         self.current_active_layer_locked_original = self.current_active_layer.locked()
-        self.current_active_layer.setLocked(True)
-        self.timer.start()
+        self.current_active_layer.setLocked(True)  
       else:
         if not self.buffer_lock:
           # Distance from initial point (cursor position trigger event was onvoked from)
@@ -183,6 +183,5 @@ class CustomCanvasRotationExtension(Extension):
           # Start timer if it's active which means it stops the timer (without triggering
           # timeout event) and starts again. Timer will keep running as long as the
           # shortcut is being pressed
-        self.timer.start()
 
 Krita.instance().addExtension(CustomCanvasRotationExtension(Krita.instance()))
