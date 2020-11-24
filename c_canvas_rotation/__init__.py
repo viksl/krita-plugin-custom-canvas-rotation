@@ -149,7 +149,7 @@ class CustomCanvasRotationExtension(Extension):
     def on_trigger():
       canvas = Krita.instance().activeWindow().activeView().canvas()
 
-      # Init custom rotation (vars, timer, active layer reference)
+      # Init custom rotation (vars, timer, active layer reference
       if not self.key_press_lock:
         self.key_press_lock = True
         self.cursor_init_position = QCursor.pos()
