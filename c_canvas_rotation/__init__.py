@@ -71,6 +71,7 @@ from krita import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QTimer
 import math
+import inspect
 
 DISTANCE_BUFFER = 3           # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
                               # Units: Pixels (screen not canvas pixels)
@@ -109,6 +110,9 @@ class Dialog(QDialog):
         self.layout().addWidget(self.label2)
         self.resize(200, 50)
         self.exec_()
+
+def getInfo(target):
+    [Dialog("Item", item) for item in inspect.getmembers(target) if not item[0].startswith('_')]
 
 class CustomCanvasRotationExtension(Extension):
   def __init__(self,parent):
@@ -153,7 +157,8 @@ class CustomCanvasRotationExtension(Extension):
   def createActions(self, window):
     self.c_canvas_rotation = window.createAction("c_canvas_rotation", "Custom Canvas Rotation")
     self.c_canvas_rotation.setAutoRepeat(False)
-    Dialog("Shortcut", str( self.c_canvas_rotation.shortcut() ))
+    # Dialog("Shortcut", str( self.c_canvas_rotation.shortcut() ))
+    getInfo(self.c_canvas_rotation.shortcut())
     # self.qwin = window.qwindow()
     # self.mdiArea = self.qwin.centralWidget().findChild(QMdiArea)
 
