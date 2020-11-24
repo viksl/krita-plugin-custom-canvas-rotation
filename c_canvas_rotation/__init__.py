@@ -152,7 +152,7 @@ class CustomCanvasRotationExtension(Extension):
 
   def createActions(self, window):
     self.c_canvas_rotation = window.createAction("c_canvas_rotation", "Custom Canvas Rotation")
-    self.c_canvas_rotation.setAutoRepeat(True)
+    self.c_canvas_rotation.setAutoRepeat(False)
     
     self.qwin = window.qwindow()
     self.mdiArea = self.qwin.centralWidget().findChild(QMdiArea)
