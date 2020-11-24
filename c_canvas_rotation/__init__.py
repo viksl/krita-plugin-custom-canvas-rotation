@@ -134,7 +134,7 @@ def two_point_distance(v1, v2):
   return math.sqrt( math.pow(( v2.x() - v1.x() ), 2) + math.pow(( v2.y() - v1.y() ), 2)  )
 
 # Reset everything back to default state to be ready for next rotation event
-def rotate_timer_timeout(self):
+def rotate_timer_timeout():
   global current_active_layer
   global current_active_layer_locked_original
   global angle
