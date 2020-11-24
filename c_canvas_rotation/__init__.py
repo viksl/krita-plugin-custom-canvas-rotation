@@ -90,7 +90,7 @@ current_active_layer = None
 current_active_layer_locked_original = False
 angle = 0                                             # Current canvas rotation
 buffer_lock = False                                   # After cursor moves out of buffer area removes the buffer condition
-key_release_lock = False                              # Locks initial key press (sets initial values for trigger event only at the
+key_release_lock = True                              # Locks initial key press (sets initial values for trigger event only at the
                                                       # beginning of the event, these values are reset in the timeout method of the timer below)
 init_offset_angle = 0                                 # An angle to keep smooth transition
                                                       # (vectors: v1 = base_vector - init; v2 = cursor (immediately after leaving buffer area) - init)
