@@ -23,7 +23,7 @@ Version: 1.0
 
 Default shortcut: Ctrl + Alt + D
 
-## Description:
+## 1/ Description:
 
   - Free plugin for Krita (<https://krita.org>)
 
@@ -57,7 +57,7 @@ Default shortcut: Ctrl + Alt + D
   half or the entire screen, this plugin mitigates this as mentioned
   above.
 
-## Installation:
+## 2/ Installation:
 
     1. Download this plugin from:
         https://github.com/viksl/krita-plugin-custom-canvas-rotaion
@@ -88,11 +88,11 @@ Default shortcut: Ctrl + Alt + D
                 Change the shortcut to whatever you like
                 (default is Ctrl + Alt + D)
 
-## How to use:
+## 3/ How to use:
 
     PRESS and HOLD the shortcut, move the cursor around to rotate the canvas.
 
-## Adjustments you can make if needed:
+## 4/ Adjustments you can make if needed:
 
   !IMPORTANT!
 
@@ -122,12 +122,33 @@ Default shortcut: Ctrl + Alt + D
       for 1 whole second until you can rotate again which I believe doesn't
       really make sense for anyone but I'm leaving this note here just in case)
 
-## Possible future updates
+## 5/ Known Issues
+- A red crossed circle might appear while rotating the canvas (or may hang around after)
+    Solution:   This it not a problem but a feature. This tells you the layer is locked
+                so you know you can't draw on it. Krita doesn't do update when the lock
+                is released but only when you move the cursor so the icon can sometimes
+                hang around if you don't move the cursor at all.
+                Again this is not an issues but Krita's built-in functionality
+- If the plugin is enabled correctly (meaning after restartin Krita if you go to
+    the settings, the plugins name can't be greyed out) it might in some rare
+    cases look like it's not working (not responding), this means that your machines
+    performance is probably just slow or got stuck by something. If restart of your machine
+    doesn't help you can simply increase TIMER_INTERVAL (check the section 5/ above) a bit
+    to reduce performance drain.
+- I can't guarantee this plugin will work with pen buttons and/or tablet buttons.
+    Since this plugin uses PyQt/Krita buil-it key repeat there's a possibility that
+    some pen buttons and/or tablet/dispaly buttons don't offer this feature and
+    only utilize keyPress/KeyRelease event (or only keyPress) once with button press.
+    This could be worked around with keyPress and keyRelease PyQt but so far I
+    haven't found a way to make this work in Krita (not with default shortcuts).
+    Keyboards should work just fine for the shortcut
+
+## 6/ Possible future updates
 
 - Perhaps an icon to idicate the centre for rotation gizmo (cursor)
 - Utilize buffer area for canas rotation reset
 
-## Thanks to
+## 7/ Thanks to
 
 wojtryb (<https://krita-artists.org/u/wojtryb>)
 
