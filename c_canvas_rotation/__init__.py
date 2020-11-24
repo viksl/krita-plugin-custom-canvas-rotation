@@ -157,31 +157,31 @@ class CustomCanvasRotationExtension(Extension):
         self.current_active_layer = Krita.instance().activeDocument().activeNode()
         self.current_active_layer_locked_original = self.current_active_layer.locked()
         self.current_active_layer.setLocked(True)
-      # else:
-      if not self.buffer_lock:
-        # Distance from initial point (cursor position trigger event was onvoked from)
-        # to cursor's current position
-        distance = two_point_distance(self.cursor_init_position, QCursor.pos())
-        
-        # If cursor outside buffer zone start immediately calculate initial offset angle
-        # to ensure smooth transition when changing angles in followint passes
-        if distance > DISTANCE_BUFFER:
-          self.buffer_lock = True
+      else:
+        if not self.buffer_lock:
+          # Distance from initial point (cursor position trigger event was onvoked from)
+          # to cursor's current position
+          distance = two_point_distance(self.cursor_init_position, QCursor.pos())
+          
+          # If cursor outside buffer zone start immediately calculate initial offset angle
+          # to ensure smooth transition when changing angles in followint passes
+          if distance > DISTANCE_BUFFER:
+            self.buffer_lock = True
 
+            v1 = [self.base_vector[0] - self.cursor_init_position.x(), self.base_vector[1] - self.cursor_init_position.y()]
+            v2 = [QCursor.pos().x() - self.cursor_init_position.x(), QCursor.pos().y() - self.cursor_init_position.y()]
+            
+            self.init_offset_angle = vector_angle(v1, v2)
+        elif self.buffer_lock:
+          # This handles the canvas rotation itself
           v1 = [self.base_vector[0] - self.cursor_init_position.x(), self.base_vector[1] - self.cursor_init_position.y()]
           v2 = [QCursor.pos().x() - self.cursor_init_position.x(), QCursor.pos().y() - self.cursor_init_position.y()]
           
-          self.init_offset_angle = vector_angle(v1, v2)
-      elif self.buffer_lock:
-        # This handles the canvas rotation itself
-        v1 = [self.base_vector[0] - self.cursor_init_position.x(), self.base_vector[1] - self.cursor_init_position.y()]
-        v2 = [QCursor.pos().x() - self.cursor_init_position.x(), QCursor.pos().y() - self.cursor_init_position.y()]
-        
-        canvas.setRotation(self.angle - self.init_offset_angle + vector_angle(v1, v2))
+          canvas.setRotation(self.angle - self.init_offset_angle + vector_angle(v1, v2))
 
-        # Start timer if it's active which means it stops the timer (without triggering
-        # timeout event) and starts again. Timer will keep running as long as the
-        # shortcut is being pressed
-        self.timer.start()
+          # Start timer if it's active which means it stops the timer (without triggering
+          # timeout event) and starts again. Timer will keep running as long as the
+          # shortcut is being pressed
+          self.timer.start()
 
 Krita.instance().addExtension(CustomCanvasRotationExtension(Krita.instance()))
