@@ -94,6 +94,7 @@ Default shortcut: Ctrl + Alt + D
 ## Adjustments you can make if needed:
 
   !IMPORTANT!
+  
   Changes you can make manually to this plugin:
   1. Locate the file __init__.py inside c_canvas_rotation directory.
   2. Open in a text editor of your choice.
