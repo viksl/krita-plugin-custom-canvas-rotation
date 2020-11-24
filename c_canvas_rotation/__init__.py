@@ -183,6 +183,6 @@ class CustomCanvasRotationExtension(Extension):
           # Start timer if it's active which means it stops the timer (without triggering
           # timeout event) and starts again. Timer will keep running as long as the
           # shortcut is being pressed
-          self.timer.start()
+        self.timer.start()
 
 Krita.instance().addExtension(CustomCanvasRotationExtension(Krita.instance()))
