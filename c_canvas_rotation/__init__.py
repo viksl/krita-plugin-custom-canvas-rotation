@@ -79,7 +79,7 @@ DISTANCE_BUFFER = 3          # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
                               # In future it might also serve as a reset for canvas reset to facilitate another function related to
                               # canvas rotation.
 
-TIMER_INTERVAL = 100           # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
+TIMER_INTERVAL = 25           # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
                               # Units: Miliseconds
                               # For me 50ms works as minimum value just fine.
                               # (you can go higher, if you need a lot more than this
