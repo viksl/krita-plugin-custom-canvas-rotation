@@ -123,6 +123,8 @@ Default shortcut: Ctrl + Alt + D
       really make sense for anyone but I'm leaving this note here just in case)
 
 ## 5/ Known Issues
+- There's a slight delay at the beginning
+    No solution so far
 - A red crossed circle might appear while rotating the canvas (or may hang around after)
     Solution:   This it not a problem but a feature. This tells you the layer is locked
                 so you know you can't draw on it. Krita doesn't do update when the lock
