@@ -44,18 +44,18 @@ Default shortcut: Ctrl + Alt + D
   after the rotation automatically there's no need to manually lock/unlock
   the layer.
 
-    Note:
+  Note:
 
-    Do not misunderstand. This does not rotate the canvas around the
-    cursor, canvas rotation in Krita always works around the centre
-    of your screen, this plugin on introduces a custom gizmo with the
-    rotation.
-    With smaller tablets/screens you might have not noticed a need for
-    this but with larger screen if you work in on a side of your screen
-    and want to rotate the canvas you still have to move the cursor
-    around the centre of the screen which means a huge movemvet across
-    half or the entire screen, this plugin mitigates this as mentioned
-    above.
+  Do not misunderstand. This does not rotate the canvas around the
+  cursor, canvas rotation in Krita always works around the centre
+  of your screen, this plugin on introduces a custom gizmo with the
+  rotation.
+  With smaller tablets/screens you might have not noticed a need for
+  this but with larger screen if you work in on a side of your screen
+  and want to rotate the canvas you still have to move the cursor
+  around the centre of the screen which means a huge movemvet across
+  half or the entire screen, this plugin mitigates this as mentioned
+  above.
 
 ## Installation:
 
