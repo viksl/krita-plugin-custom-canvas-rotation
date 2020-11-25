@@ -28,12 +28,11 @@ Default shortcut: Ctrl + Alt + D
   - Free plugin for Krita (<https://krita.org>)
   - Youtube video (<https://youtu.be/tfZ2WgdKL-0>)
 
-  Krita's canvas rotation is currently bound to the center, which means
-  no matter where on screen your cursor is the angle is always calculated
-  towards the screen/window centre. This means that to rotate cans the
-  cursor has to move across the whole screen for a full 360° rotation
-  or you have to move the cursor closer to the center of the screen
-  to use shorter circular movement for the rotation.
+  Krita's canvas rotation's gizmo is currently bound to the center, which means
+  no matter where on screen your cursor is the gizmo remains in centre.
+  This means that to rotate canvas the cursor has to move across the whole screen
+  for a full 360° rotation or you have to move the cursor closer to the
+  center of the screen to use shorter circular movement for the rotation.
 
   This plugin introduces a new shortcut and a semi-new function which
   utilizes Krita's original canvas rotation but instead of having 
