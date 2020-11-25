@@ -192,10 +192,10 @@ class CustomCanvasRotationExtension(Extension):
   def createActions(self, window):
     self.c_canvas_rotation = window.createAction("c_canvas_rotation", "Custom Canvas Rotation")
     self.c_canvas_rotation.setAutoRepeat(False)
-    self.MAFilter.setMouseTracking(True)
 
     self.MAFilter = self.mdiAreaFilter()
-
+    self.MAFilter.setMouseTracking(True)
+    
     @self.c_canvas_rotation.triggered.connect
     def on_trigger():
       global current_active_layer
