@@ -71,14 +71,6 @@ DISTANCE_BUFFER = 10                                  # THIS VALUE CAN BE CHANGE
                                                       # In future it might also serve as a reset for canvas reset to facilitate another function related to
                                                       # canvas rotation.
 
-TIMER_INTERVAL = 50                                   # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
-                                                      # Units: Miliseconds
-                                                      # Warning: Cannot be negative!
-                                                      # The lower the smoother experience but more cpu intensive (overall it's not a very expensive process
-                                                      # so you are fine with going half way down if you feel like it)
-                                                      # Don't go to much towards 0 if possible since at very low rates you can get to the moment when
-                                                      # krita event loop is as fast as this timer and the rotation will thus fail
-
 current_active_layer = None
 current_active_layer_locked_original = False
 angle = 0                                             # Current canvas rotation
@@ -228,17 +220,23 @@ class CustomCanvasRotationExtension(Extension):
   def setup(self):
     pass
 
+  def rotation_trigger(self):
+    global shortcut_pressed
+    shortcut_pressed = True
+
   def createActions(self, window):
     self.c_canvas_rotation = window.createAction("c_canvas_rotation", "Custom Canvas Rotation")
     self.c_canvas_rotation.setAutoRepeat(False)
 
     self.MAFilter = mdiAreaFilter()
     self.MAFilter.setMouseTracking(True)
-    
-    @self.c_canvas_rotation.triggered.connect
-    def on_trigger():
-      global shortcut_pressed
-      shortcut_pressed = True
+
+    self.c_canvas_rotation.trigger.connect(self.rotation_trigger)
+
+    # @self.c_canvas_rotation.triggered.connect
+    # def on_trigger():
+    #   global shortcut_pressed
+    #   shortcut_pressed = True
 
 
 Krita.instance().addExtension(CustomCanvasRotationExtension(Krita.instance()))
