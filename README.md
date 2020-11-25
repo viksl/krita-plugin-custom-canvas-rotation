@@ -19,9 +19,9 @@ Licence:
 
 Copyright: (C) viksl
 
-Date: 25.11.2020
+Release Date: 25.11.2020
 
-Version: 1.0
+Version: 1.1
 
 Default shortcut: Ctrl + Alt + D + (Mouse left/middle button or Pen touch)
 
