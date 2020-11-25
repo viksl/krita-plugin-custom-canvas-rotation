@@ -125,6 +125,7 @@ def init_rotation():
   cursor_init_position = QCursor.pos()
   angle = canvas.rotation()
   current_active_layer = Krita.instance().activeDocument().activeNode()
+  Dialog(current_active_layer_locked_original)
   current_active_layer_locked_original = current_active_layer.locked()
   current_active_layer.setLocked(True) 
 
