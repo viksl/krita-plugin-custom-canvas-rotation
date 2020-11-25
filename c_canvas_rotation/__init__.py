@@ -97,7 +97,6 @@ class Dialog(QDialog):
       self.setLayout(QVBoxLayout())
       self.label = QLabel(str(text))
       self.layout().addWidget(self.label)
-      self.layout().addWidget(self.label2)
       self.resize(200, 50)
       self.exec_()
 
@@ -218,7 +217,7 @@ class CustomCanvasRotationExtension(Extension):
         (e.button() == QtCore.Qt.LeftButton or  e.button() == QtCore.Qt.MidButton)
       ):
         mouse_button_pressed = False
-        Dialog("stop rotation")
+        # Dialog("stop rotation")
         stop_rotation()
         return False
 
