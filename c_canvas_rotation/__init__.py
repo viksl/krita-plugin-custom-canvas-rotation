@@ -181,49 +181,50 @@ def rotate():
     canvas = Krita.instance().activeWindow().activeView().canvas()
     canvas.setRotation(angle - init_offset_angle + vector_angle(v1, v2))
 
+class mdiAreaFilter(QMdiArea):
+  def __init__(self, parent=None):
+    super().__init__(parent)
+
+  def eventFilter(self, obj, e):
+    global mouse_button_pressed
+    global shortcut_pressed
+
+    if (
+      not mouse_button_pressed and not shortcut_pressed
+    ):
+      return False
+
+    if (
+      not e.isAutoRepeat() and
+      e.type() == QEvent.MouseButtonPress and 
+      (e.button() == QtCore.Qt.LeftButton or e.button() == QtCore.Qt.MidButton)
+    ):
+      mouse_button_pressed = True
+      init_rotation()
+
+    if e.type() == QEvent.KeyRelease and not e.isAutoRepeat() and not mouse_button_pressed:
+      shortcut_pressed = False
+      return False
+
+    if not mouse_button_pressed:
+      return False
+
+    if (
+      e.type() == QEvent.MouseButtonRelease and
+      (e.button() == QtCore.Qt.LeftButton or  e.button() == QtCore.Qt.MidButton)
+    ):
+      mouse_button_pressed = False
+      stop_rotation()
+      return False
+
+    if e.type() == QEvent.MouseMove:
+      rotate()
+
+    return False
+
 class CustomCanvasRotationExtension(Extension):
   def __init__(self,parent):
     super(CustomCanvasRotationExtension, self).__init__(parent)
-
-  class mdiAreaFilter(QMdiArea):
-    def __init__(self, parent=None):
-      super().__init__(parent)
-
-    def eventFilter(self, obj, e):
-      global mouse_button_pressed
-      global shortcut_pressed
-
-      if (
-        not mouse_button_pressed and not shortcut_pressed
-      ):
-        return False
-
-      if (
-        e.type() == QEvent.MouseButtonPress and 
-        (e.button() == QtCore.Qt.LeftButton or e.button() == QtCore.Qt.MidButton)
-      ):
-        mouse_button_pressed = True
-        init_rotation()
-
-      if e.type() == QEvent.KeyRelease and not e.isAutoRepeat() and not mouse_button_pressed:
-        shortcut_pressed = False
-        return False
-
-      if not mouse_button_pressed:
-        return False
-
-      if (
-        e.type() == QEvent.MouseButtonRelease and
-        (e.button() == QtCore.Qt.LeftButton or  e.button() == QtCore.Qt.MidButton)
-      ):
-        mouse_button_pressed = False
-        stop_rotation()
-        return False
-
-      if e.type() == QEvent.MouseMove:
-        rotate()
-
-      return False
 
   def setup(self):
     pass
@@ -232,7 +233,7 @@ class CustomCanvasRotationExtension(Extension):
     self.c_canvas_rotation = window.createAction("c_canvas_rotation", "Custom Canvas Rotation")
     self.c_canvas_rotation.setAutoRepeat(False)
 
-    self.MAFilter = self.mdiAreaFilter()
+    self.MAFilter = mdiAreaFilter()
     self.MAFilter.setMouseTracking(True)
     
     @self.c_canvas_rotation.triggered.connect
