@@ -89,7 +89,7 @@ cursor_init_position = None                           # Cursor position when cus
 base_vector = [1, 0]                                  # Unit vector as reference to measure angle from
 shortcut_pressed = False
 mouse_button_pressed = False
-counter = 0
+
 # Class for testing (replaces a print statement as I don't know how to print on win)
 class Dialog(QDialog):
   def __init__(self, text, parent=None):
@@ -120,8 +120,7 @@ def init_rotation():
   global init_offset_angle
   global cursor_init_position
   global base_vector
-  global counter
-  counter +=1
+
   canvas = Krita.instance().activeWindow().activeView().canvas()
   cursor_init_position = QCursor.pos()
   angle = canvas.rotation()
@@ -145,7 +144,7 @@ def stop_rotation():
   buffer_lock = False
   init_offset_angle = 0
   angle = 0
-  Dialog("counter " + str(counter))
+
   if current_active_layer != None:
     current_active_layer.setLocked(current_active_layer_locked_original)
 
