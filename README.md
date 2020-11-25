@@ -6,6 +6,8 @@ Github: https://github.com/viksl
 
 Github for this project: https://github.com/viksl/krita-plugin-custom-canvas-rotaion
 
+Krita version: 4.4.1
+
 Licence:
 - See file LICENSE
 
