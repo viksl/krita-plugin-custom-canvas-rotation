@@ -63,7 +63,7 @@ Default shortcut: Ctrl + Alt + D
 
     1. Download this plugin from:
         https://github.com/viksl/krita-plugin-custom-canvas-rotaion
-        (on the right side there's a green button label Code, press it
+        (on the right side there's a green button labeled Code, press it
         then click on Download ZIP)
     2. Open the zip file
     3. Locate directory c_canvas_rotation and c_canvas_rotation.desktop
