@@ -198,7 +198,7 @@ class CustomCanvasRotationExtension(Extension):
       if not shortcut_pressed:
         return False
 
-      if e.type() == QEvent.KeyRelease:
+      if e.type() == QEvent.KeyRelease and not e.isAutoRepeat():
         shortcut_pressed = False
         return False
 
