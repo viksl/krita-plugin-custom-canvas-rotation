@@ -92,8 +92,8 @@ Default shortcut: Ctrl + Alt + D + (Mouse left/middle button or Pen touch)
 
 ## 3/ How to use:
 
-    (Use is the exactly same as Krita's default canvas rotation - custom shortcut + mouse left or middle button click or shortcut + pen touch)
-    PRESS the shortcut + press left mouse button or middle mouse button or put the pen on the tablet's surface, move the cursor around to rotate the canvas.
+(Use is the exactly same as Krita's default canvas rotation - custom shortcut + mouse left or middle button click or shortcut + pen touch)
+PRESS the shortcut + press left mouse button or middle mouse button or put the pen on the tablet's surface, move the cursor around to rotate the canvas.
 
 ## 4/ Adjustments you can make if needed:
 
