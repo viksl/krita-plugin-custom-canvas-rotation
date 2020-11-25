@@ -196,6 +196,7 @@ class CustomCanvasRotationExtension(Extension):
       ):
         mouse_button_pressed = False
         stop_rotation()
+        return False
 
       if e.type() == QEvent.MouseMove:
         rotate()
