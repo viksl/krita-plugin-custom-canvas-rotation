@@ -217,7 +217,4 @@ class CustomCanvasRotationExtension(Extension):
       current_active_layer_locked_original = current_active_layer.locked()
       current_active_layer.setLocked(True)
 
-
-scripter = Krita.instance().action('python_scripter').trigger()
-scripter.print("test print")
 Krita.instance().addExtension(CustomCanvasRotationExtension(Krita.instance()))
