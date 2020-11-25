@@ -44,23 +44,17 @@ Description:
   1. Locate the file __init__.py inside c_canvas_rotation directory.
   2. Open in a text editor of your choice.
   3. At the top on lines 74 and 81 you will find constants:
-      DISTANCE_BUFFER and TIMER_INTERVAL
+      DISTANCE_BUFFER
   4. Increase/decrease (can't be negative!) DISTANCE_BUFFER (pixels radius)
       to grow/shrink area when the rotation is not responsive until the
       cursor leaves this area for the first time (after that the area
       is disabled and the rotation is allowed everywhere)
-  5.  Increase/decrease (can't be negative!) TIMER_INTERVAL (milliseconds)
-      to increase/decrease how smooth the ccustom canvas rotaion is.
-      The lower the smoother experience but more cpu intensive (overall it's not a very expensive process
-      so you are fine with going half way down if you feel like it)
-      Don't go to much towards 0 if possible since at very low rates you can get to the moment when
-      krita event loop is as fast as this timer and the rotation will thus fail
+
 Copyright: (C) viksl
 """
 
 from krita import *
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import QTimer
 import math
 
 DISTANCE_BUFFER = 10                                  # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
@@ -201,6 +195,10 @@ class mdiAreaFilter(QMdiArea):
     ):
       return False
 
+    """
+      Use left mouse button or middle mouse button
+      Initiate rotation vars
+    """
     if (
       not mouse_button_pressed and
       e.type() == QEvent.MouseButtonPress and 
@@ -211,7 +209,9 @@ class mdiAreaFilter(QMdiArea):
 
     """
       Treat key release properly, now only mouse button press which is now True is the
-      driving force
+      driving force.
+      Set active layer's lock back to original state (since mouse left/middle button
+      hasn't been pressed yet)
     """
     if e.type() == QEvent.KeyRelease and not e.isAutoRepeat() and not mouse_button_pressed:
       shortcut_pressed = False
@@ -221,6 +221,10 @@ class mdiAreaFilter(QMdiArea):
     if not mouse_button_pressed:
       return False
 
+    """
+      Left/Middle mouse button release
+      Stop rotation
+    """
     if (
       e.type() == QEvent.MouseButtonRelease and
       (e.button() == QtCore.Qt.LeftButton or  e.button() == QtCore.Qt.MidButton)
@@ -228,7 +232,10 @@ class mdiAreaFilter(QMdiArea):
       mouse_button_pressed = False
       stop_rotation()
       return False
-
+    
+    """
+      Main driving force for this event loop
+    """
     if e.type() == QEvent.MouseMove:
       rotate()
 
