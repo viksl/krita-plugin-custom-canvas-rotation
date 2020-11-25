@@ -195,7 +195,7 @@ class mdiAreaFilter(QMdiArea):
       return False
 
     if (
-      not e.isAutoRepeat() and
+      not mouse_button_pressed and
       e.type() == QEvent.MouseButtonPress and 
       (e.button() == QtCore.Qt.LeftButton or e.button() == QtCore.Qt.MidButton)
     ):
