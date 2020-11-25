@@ -143,7 +143,7 @@ def stop_rotation():
   buffer_lock = False
   init_offset_angle = 0
   angle = 0
-  Dialog(current_active_layer)
+  Dialog(current_active_layer_locked_original)
   if current_active_layer != None:
     current_active_layer.setLocked(current_active_layer_locked_original)
 
