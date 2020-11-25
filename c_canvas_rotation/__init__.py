@@ -7,7 +7,7 @@ Licence:  See file LICENSE
           Version 3
           <https://www.gnu.org/licenses/>
 Date: 25.11.2020
-Version: 1.0
+Version: 1.1
 Krita version: 4.4.1
 Default shortcut: Ctrl + Alt + D + (Mouse left/middle button or Pen touch)
 Description:
