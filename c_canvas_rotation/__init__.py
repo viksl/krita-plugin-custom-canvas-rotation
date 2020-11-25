@@ -143,7 +143,7 @@ def stop_rotation():
   buffer_lock = False
   init_offset_angle = 0
   angle = 0
-
+  Dialog(current_active_layer)
   if current_active_layer != None:
     current_active_layer.setLocked(current_active_layer_locked_original)
 
@@ -151,8 +151,6 @@ def stop_rotation():
 
 # Reset everything back to default state to be ready for next rotation event
 def rotate():
-  global current_active_layer
-  global current_active_layer_locked_original
   global angle
   global buffer_lock
   global init_offset_angle
@@ -217,7 +215,6 @@ class CustomCanvasRotationExtension(Extension):
         (e.button() == QtCore.Qt.LeftButton or  e.button() == QtCore.Qt.MidButton)
       ):
         mouse_button_pressed = False
-        # Dialog("stop rotation")
         stop_rotation()
         return False
 
