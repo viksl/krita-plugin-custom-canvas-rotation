@@ -9,7 +9,7 @@ Licence:  See file LICENSE
 Date: 25.11.2020
 Version: 1.0
 Krita version: 4.4.1
-Default shortcut: Ctrl + Alt + D
+Default shortcut: Ctrl + Alt + D + (Mouse left/middle button or Pen touch)
 Description:
   - Free plugin for Krita <https://krita.org) -
   Krita's canvas rotation is currently bound to the center, which means
@@ -43,7 +43,7 @@ Description:
   Changes you can make manually to this plugin:
   1. Locate the file __init__.py inside c_canvas_rotation directory.
   2. Open in a text editor of your choice.
-  3. At the top on lines 74 and 81 you will find constants:
+  3. At the top on lines 60 you will find a constant:
       DISTANCE_BUFFER
   4. Increase/decrease (can't be negative!) DISTANCE_BUFFER (pixels radius)
       to grow/shrink area when the rotation is not responsive until the

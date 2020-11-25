@@ -23,7 +23,7 @@ Date: 25.11.2020
 
 Version: 1.0
 
-Default shortcut: Ctrl + Alt + D
+Default shortcut: Ctrl + Alt + D + (Mouse left/middle button or Pen touch)
 
 ## 1/ Description:
 
@@ -92,7 +92,8 @@ Default shortcut: Ctrl + Alt + D
 
 ## 3/ How to use:
 
-    PRESS and HOLD the shortcut, move the cursor around to rotate the canvas.
+    (Use is the exactly same as Krita's default canvas rotation - custom shortcut + mouse left or middle button click or shortcut + pen touch)
+    PRESS the shortcut + press left mouse button or middle mouse button or put the pen on the tablet's surface, move the cursor around to rotate the canvas.
 
 ## 4/ Adjustments you can make if needed:
 
@@ -101,18 +102,12 @@ Default shortcut: Ctrl + Alt + D
   Changes you can make manually to this plugin:
   1. Locate the file \_\_init\_\_.py inside c_canvas_rotation directory.
   2. Open in a text editor of your choice.
-  3. At the top on lines 74 and 81 you will find constants:
-      DISTANCE_BUFFER and TIMER_INTERVAL
+  3. At the top on lines 60 you will find a constant:
+      DISTANCE_BUFFER
   4. Increase/decrease (can't be negative!) DISTANCE_BUFFER (pixels radius)
       to grow/shrink area when the rotation is not responsive until the
       cursor leaves this area for the first time (after that the area
       is disabled and the rotation is allowed everywhere)
-  5.  Increase/decrease (can't be negative!) TIMER_INTERVAL (milliseconds)
-      to increase/decrease how smooth the ccustom canvas rotaion is.
-      The lower the smoother experience but more cpu intensive (overall it's not a very expensive process
-      so you are fine with going half way down if you feel like it)
-      Don't go to much towards 0 if possible since at very low rates you can get to the moment when
-      krita event loop is as fast as this timer and the rotation will thus fail
 
 ## 5/ Known Issues
 - A red crossed circle might appear while rotating the canvas (or may hang around after)
