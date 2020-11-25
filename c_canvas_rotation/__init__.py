@@ -175,7 +175,7 @@ class CustomCanvasRotationExtension(Extension):
       super().__init__(parent)
 
     def eventFilter(self, obj, e):
-      if (e.type() == QEvent.MouseButtonPress and e.button() == QtCore.Qt.LeftButton and not shortcut_pressed) or not shortcut_pressed:
+      if not shortcut_pressed and e.type() == QEvent.MouseButtonPress and e.button() == QtCore.Qt.LeftButton:
         return False
 
       if e.type() == QEvent.MouseButtonRelease and e.button() == QtCore.Qt.LeftButton:
