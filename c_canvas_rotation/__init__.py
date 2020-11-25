@@ -232,10 +232,5 @@ class CustomCanvasRotationExtension(Extension):
     self.MAFilter = mdiAreaFilter()
     self.MAFilter.setMouseTracking(True)
 
-    # @self.c_canvas_rotation.triggered.connect
-    # def on_trigger():
-    #   global shortcut_pressed
-    #   shortcut_pressed = True
-
 
 Krita.instance().addExtension(CustomCanvasRotationExtension(Krita.instance()))
