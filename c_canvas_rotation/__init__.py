@@ -88,7 +88,6 @@ init_offset_angle = 0                                 # An angle to keep smooth 
 cursor_init_position = None                           # Cursor position when custom rotation invokation begins
 base_vector = [1, 0]                                  # Unit vector as reference to measure angle from
 shortcut_pressed = False
-mouse_left_pressed = False
 
 # Class for testing (replaces a print statement as I don't know how to print on win)
 class Dialog(QDialog):
@@ -123,9 +122,7 @@ def stop_rotation():
   global cursor_init_position
   global base_vector
   global shortcut_pressed
-  global mouse_left_pressed
 
-  mouse_left_pressed = False
   shortcut_pressed = False
   cursor_init_position = None
   buffer_lock = False
@@ -178,13 +175,8 @@ class CustomCanvasRotationExtension(Extension):
       super().__init__(parent)
 
     def eventFilter(self, obj, e):
-      global mouse_left_pressed
-
       if not shortcut_pressed:
         return False
-
-      if e.type() == QEvent.MouseButtonPress and e.button() == QtCore.Qt.LeftButton:
-        mouse_left_pressed = True
       
       if e.type() == QEvent.MouseButtonRelease and e.button() == QtCore.Qt.LeftButton:
         stop_rotation()
