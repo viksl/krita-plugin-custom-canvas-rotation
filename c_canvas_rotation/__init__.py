@@ -216,6 +216,7 @@ class CustomCanvasRotationExtension(Extension):
         (e.button() == QtCore.Qt.LeftButton or  e.button() == QtCore.Qt.MidButton)
       ):
         mouse_button_pressed = False
+        Dialog("stop rotation")
         stop_rotation()
         return False
 
