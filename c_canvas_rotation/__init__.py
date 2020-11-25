@@ -116,10 +116,6 @@ def init_rotation():
   canvas = Krita.instance().activeWindow().activeView().canvas()
   cursor_init_position = QCursor.pos()
   angle = canvas.rotation()
-  current_active_layer = Krita.instance().activeDocument().activeNode()
-
-  current_active_layer_locked_original = current_active_layer.locked()
-  current_active_layer.setLocked(True) 
 
 def stop_rotation():
   global current_active_layer
@@ -172,6 +168,7 @@ def rotate():
     canvas = Krita.instance().activeWindow().activeView().canvas()
     canvas.setRotation(angle - init_offset_angle + vector_angle(v1, v2))
 
+# Main event loop is here
 class mdiAreaFilter(QMdiArea):
   def __init__(self, parent=None):
     super().__init__(parent)
@@ -180,6 +177,13 @@ class mdiAreaFilter(QMdiArea):
     global mouse_button_pressed
     global shortcut_pressed
 
+    """
+      Get through only if shortcut hasn't been pressed yet and after that mouse button hasn't been
+      After shortcut is pressed, only the mouse button press is a deciding factor to get through or not
+      (this way you can release shortcut keys while only moving mosue around the same way
+      as default canvas rotation works)
+      In other cases just return False, no need to care about events not related to this code
+    """
     if (
       not mouse_button_pressed and not shortcut_pressed
     ):
@@ -193,6 +197,10 @@ class mdiAreaFilter(QMdiArea):
       mouse_button_pressed = True
       init_rotation()
 
+    """
+      Treat key release properly, now only mouse button press which is now True is the
+      driving force
+    """
     if e.type() == QEvent.KeyRelease and not e.isAutoRepeat() and not mouse_button_pressed:
       shortcut_pressed = False
       return False
@@ -222,7 +230,15 @@ class CustomCanvasRotationExtension(Extension):
 
   def rotation_trigger(self):
     global shortcut_pressed
+    global current_active_layer
+    global current_active_layer_locked_original
+
     shortcut_pressed = True
+
+    current_active_layer = Krita.instance().activeDocument().activeNode()
+
+    current_active_layer_locked_original = current_active_layer.locked()
+    current_active_layer.setLocked(True) 
 
   def createActions(self, window):
     self.c_canvas_rotation = window.createAction("c_canvas_rotation", "Custom Canvas Rotation")
