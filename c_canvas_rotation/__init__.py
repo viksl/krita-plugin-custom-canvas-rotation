@@ -8,6 +8,7 @@ Licence:  See file LICENSE
           <https://www.gnu.org/licenses/>
 Date: 25.11.2020
 Version: 1.0
+Krita version: 4.4.1
 Default shortcut: Ctrl + Alt + D
 Description:
   - Free plugin for Krita <https://krita.org) -
