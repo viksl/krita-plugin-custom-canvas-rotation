@@ -187,8 +187,10 @@ class CustomCanvasRotationExtension(Extension):
       ):
         mouse_button_pressed = True
 
+      if not mouse_button_pressed:
+        return False
+
       if (
-        mouse_button_pressed and
         e.type() == QEvent.MouseButtonRelease and
         (e.button() == QtCore.Qt.LeftButton or  e.button() == QtCore.Qt.MidButton)
       ):
