@@ -117,9 +117,25 @@ def init_rotation():
   cursor_init_position = QCursor.pos()
   angle = canvas.rotation()
 
+def lock_active_layer():
+    global current_active_layer
+    global current_active_layer_locked_original
+
+    current_active_layer = Krita.instance().activeDocument().activeNode()
+
+    current_active_layer_locked_original = current_active_layer.locked()
+    current_active_layer.setLocked(True)
+
+def unlock_active_layer():
+    global current_active_layer
+    global current_active_layer_locked_original
+
+    if current_active_layer != None:
+      current_active_layer.setLocked(current_active_layer_locked_original)
+
+    current_active_layer = None
+
 def stop_rotation():
-  global current_active_layer
-  global current_active_layer_locked_original
   global angle
   global buffer_lock
   global init_offset_angle
@@ -132,11 +148,7 @@ def stop_rotation():
   buffer_lock = False
   init_offset_angle = 0
   angle = 0
-
-  if current_active_layer != None:
-    current_active_layer.setLocked(current_active_layer_locked_original)
-
-  current_active_layer = None
+  unlock_active_layer()
 
 # Reset everything back to default state to be ready for next rotation event
 def rotate():
@@ -203,6 +215,7 @@ class mdiAreaFilter(QMdiArea):
     """
     if e.type() == QEvent.KeyRelease and not e.isAutoRepeat() and not mouse_button_pressed:
       shortcut_pressed = False
+      unlock_active_layer()
       return False
 
     if not mouse_button_pressed:
@@ -230,15 +243,10 @@ class CustomCanvasRotationExtension(Extension):
 
   def rotation_trigger(self):
     global shortcut_pressed
-    global current_active_layer
-    global current_active_layer_locked_original
 
     shortcut_pressed = True
 
-    current_active_layer = Krita.instance().activeDocument().activeNode()
-
-    current_active_layer_locked_original = current_active_layer.locked()
-    current_active_layer.setLocked(True) 
+    lock_active_layer()
 
   def createActions(self, window):
     self.c_canvas_rotation = window.createAction("c_canvas_rotation", "Custom Canvas Rotation")
