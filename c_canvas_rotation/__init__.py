@@ -193,10 +193,15 @@ class CustomCanvasRotationExtension(Extension):
 
     def eventFilter(self, obj, e):
       global mouse_button_pressed
-      
+      global shortcut_pressed
+
       if not shortcut_pressed:
         return False
-      
+
+      if e.type() == QEvent.KeyRelease:
+        shortcut_pressed = False
+        return False
+
       if (
         e.type() == QEvent.MouseButtonPress and 
         (e.button() == QtCore.Qt.LeftButton or e.button() == QtCore.Qt.MidButton)
@@ -217,9 +222,6 @@ class CustomCanvasRotationExtension(Extension):
 
       if e.type() == QEvent.MouseMove:
         rotate()
-      
-      if e.type() == QEvent.KeyRelease and not mouse_button_pressed:
-        stop_rotation()
 
       return False
 
