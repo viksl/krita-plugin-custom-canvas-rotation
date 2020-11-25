@@ -92,11 +92,10 @@ mouse_button_pressed = False
 
 # Class for testing (replaces a print statement as I don't know how to print on win)
 class Dialog(QDialog):
-  def __init__(self, text, text2, parent=None):
+  def __init__(self, text, parent=None):
       super(Dialog, self).__init__(parent)
       self.setLayout(QVBoxLayout())
       self.label = QLabel(str(text))
-      self.label2 = QLabel(str(text2))
       self.layout().addWidget(self.label)
       self.layout().addWidget(self.label2)
       self.resize(200, 50)
@@ -195,10 +194,9 @@ class CustomCanvasRotationExtension(Extension):
       global mouse_button_pressed
       global shortcut_pressed
 
-      if not shortcut_pressed:
-        return False
-
-      if e.type() == QEvent.KeyRelease and not e.isAutoRepeat() and not mouse_button_pressed:
+      if (
+        not mouse_button_pressed and not shortcut_pressed
+      ):
         return False
 
       if (
@@ -207,6 +205,10 @@ class CustomCanvasRotationExtension(Extension):
       ):
         mouse_button_pressed = True
         init_rotation()
+
+      if e.type() == QEvent.KeyRelease and not e.isAutoRepeat() and not mouse_button_pressed:
+        shortcut_pressed = False
+        return False
 
       if not mouse_button_pressed:
         return False
