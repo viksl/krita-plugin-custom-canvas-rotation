@@ -114,6 +114,22 @@ def vector_angle(v1, v2):
 def two_point_distance(v1, v2):
   return math.sqrt( math.pow(( v2.x() - v1.x() ), 2) + math.pow(( v2.y() - v1.y() ), 2)  )
 
+def init_rotation():
+  global current_active_layer
+  global current_active_layer_locked_original
+  global angle
+  global buffer_lock
+  global init_offset_angle
+  global cursor_init_position
+  global base_vector
+
+  canvas = Krita.instance().activeWindow().activeView().canvas()
+  cursor_init_position = QCursor.pos()
+  angle = canvas.rotation()
+  current_active_layer = Krita.instance().activeDocument().activeNode()
+  current_active_layer_locked_original = current_active_layer.locked()
+  current_active_layer.setLocked(True) 
+
 def stop_rotation():
   global current_active_layer
   global current_active_layer_locked_original
@@ -186,6 +202,7 @@ class CustomCanvasRotationExtension(Extension):
         (e.button() == QtCore.Qt.LeftButton or e.button() == QtCore.Qt.MidButton)
       ):
         mouse_button_pressed = True
+        init_rotation()
 
       if not mouse_button_pressed:
         return False
@@ -200,7 +217,10 @@ class CustomCanvasRotationExtension(Extension):
 
       if e.type() == QEvent.MouseMove:
         rotate()
-        
+      
+      if e.type() == QEvent.KeyRelease and not mouse_button_pressed:
+        stop_rotation()
+
       return False
 
   def setup(self):
@@ -215,23 +235,8 @@ class CustomCanvasRotationExtension(Extension):
     
     @self.c_canvas_rotation.triggered.connect
     def on_trigger():
-      global current_active_layer
-      global current_active_layer_locked_original
-      global angle
-      global buffer_lock
-      global init_offset_angle
-      global cursor_init_position
-      global base_vector
       global shortcut_pressed
-
-      canvas = Krita.instance().activeWindow().activeView().canvas()
-      
-      # Init custom rotation (vars, timer, active layer reference)
       shortcut_pressed = True
-      cursor_init_position = QCursor.pos()
-      angle = canvas.rotation()
-      current_active_layer = Krita.instance().activeDocument().activeNode()
-      current_active_layer_locked_original = current_active_layer.locked()
-      current_active_layer.setLocked(True)
+
 
 Krita.instance().addExtension(CustomCanvasRotationExtension(Krita.instance()))
