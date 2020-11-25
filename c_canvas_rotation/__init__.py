@@ -144,7 +144,7 @@ def release_timer_timeout():
   current_active_layer = None
 
 # Reset everything back to default state to be ready for next rotation event
-def rotate_timer_timeout():
+def rotate():
   global current_active_layer
   global current_active_layer_locked_original
   global angle
@@ -195,6 +195,9 @@ class CustomCanvasRotationExtension(Extension):
 
         release_timer.start()
         
+      if e.type() == QEvent.MouseMove:
+        rotate()
+        
       return False
 
   def setup(self):
@@ -231,9 +234,6 @@ class CustomCanvasRotationExtension(Extension):
       current_active_layer_locked_original = current_active_layer.locked()
       current_active_layer.setLocked(True)
 
-      timer.start()
-
-timer.timeout.connect(rotate_timer_timeout)
 release_timer.timeout.connect(release_timer_timeout)
 
 Krita.instance().addExtension(CustomCanvasRotationExtension(Krita.instance()))
