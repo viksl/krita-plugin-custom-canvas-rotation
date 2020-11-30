@@ -1,10 +1,10 @@
-# krita-plugin-custom-canvas-rotaion
+# krita-plugin-custom-canvas-rotation
 
 Author: viksl
 
 Github: https://github.com/viksl
 
-Github for this project: https://github.com/viksl/krita-plugin-custom-canvas-rotaion
+Github for this project: https://github.com/viksl/krita-plugin-custom-canvas-rotation
 
 Krita version: 4.4.1
 
@@ -62,12 +62,12 @@ Default shortcut: Ctrl + Alt + D + (Mouse left/middle button or Pen touch)
 ## 2/ Installation:
 
     1. Download this plugin from:
-        https://github.com/viksl/krita-plugin-custom-canvas-rotaion
+        https://github.com/viksl/krita-plugin-custom-canvas-rotation
         (on the right side there's a green button labeled Code, press it
         then click on Download ZIP)
     2. Open the zip file
     3. Locate directory c_canvas_rotation and c_canvas_rotation.desktop
-        file inside krita-plugin-custom-canvas-rotaion-main directory
+        file inside krita-plugin-custom-canvas-rotation-main directory
     4. Copy the file and the directory to pykrita directory located
         through: Open Krita, go to:
         Settings
