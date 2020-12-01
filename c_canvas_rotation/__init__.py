@@ -110,7 +110,7 @@ class rotationCentreIcon(QWidget):
     self.painter = QPainter(self)
     self.painter.setRenderHints( QPainter.HighQualityAntialiasing )
     self.painter.setBrush(QColor(47, 47, 47, 150))
-    self.painter.drawEllipse(self.position.x(), self.position.y(), self.width - self.width / 2, self.height - self.height / 2)
+    self.painter.drawEllipse(int(self.position.x()), int(self.position.y()), int(self.width - self.width / 2), int(self.height - self.height / 2))
     self.painter.end()
 
 
