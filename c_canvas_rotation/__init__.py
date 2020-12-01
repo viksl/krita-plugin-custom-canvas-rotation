@@ -100,8 +100,6 @@ class rotationCentreIcon(QWidget):
     self.painter.drawEllipse(0, 0, self.width, self.height)
     self.painter.end()
 
-circleIcon = rotationCentreIcon(QPoint(0, 0), DISTANCE_BUFFER, DISTANCE_BUFFER)
-
 # Class for testing (replaces a print statement as I don't know how to print on win)
 class Dialog(QDialog):
   def __init__(self, text, parent=None):
@@ -287,10 +285,12 @@ class CustomCanvasRotationExtension(Extension):
     lock_active_layer()
 
   def createActions(self, window):
+    global circleIcon
+    
     self.c_canvas_rotation = window.createAction("c_canvas_rotation", "Custom Canvas Rotation")
     self.c_canvas_rotation.triggered.connect(self.rotation_trigger)
     self.c_canvas_rotation.setAutoRepeat(False)
-
+    circleIcon = rotationCentreIcon(QPoint(0, 0), DISTANCE_BUFFER, DISTANCE_BUFFER, parent=window)
     self.MAFilter = mdiAreaFilter()
     self.MAFilter.setMouseTracking(True)
 
