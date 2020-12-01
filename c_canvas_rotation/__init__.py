@@ -76,6 +76,7 @@ cursor_init_position = None                           # Cursor position when cus
 base_vector = [1, 0]                                  # Unit vector as reference to measure angle from
 shortcut_pressed = False
 mouse_button_pressed = False
+circleIcon = None
 
 class RotationCentreIcon(QWidget):
   def __init__(self, position, width, height, parent=None):
@@ -85,7 +86,7 @@ class RotationCentreIcon(QWidget):
     self.width = int(width)
     self.height = int(height)
     self.setGeometry(int(position.x() - self.width / 2), int(position.y() - self.height / 2), self.width, self.height)
-    self.setWindowFlags(self.windowFlags() | QtCore.Qt.FramelessWindowHint)
+    self.setWindowFlags(self.windowFlags() | QtCore.Qt.Window | QtCore.Qt.FramelessWindowHint)
     self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
     self.setStyleSheet("background: transparent;")
     self.setWindowTitle("icon")
@@ -137,6 +138,8 @@ def init_rotation():
   canvas = Krita.instance().activeWindow().activeView().canvas()
   cursor_init_position = QCursor.pos()
   angle = canvas.rotation()
+  if circleIcon is None:
+    circleIcon = RotationCentreIcon(QPoint(0, 0), DISTANCE_BUFFER, DISTANCE_BUFFER, Krita.instance().activeWindow())
   circleIcon.showAt(cursor_init_position)
 
 def lock_active_layer():
@@ -286,12 +289,9 @@ class CustomCanvasRotationExtension(Extension):
     lock_active_layer()
 
   def createActions(self, window):
-    global circleIcon
-
     self.c_canvas_rotation = window.createAction("c_canvas_rotation", "Custom Canvas Rotation")
     self.c_canvas_rotation.triggered.connect(self.rotation_trigger)
     self.c_canvas_rotation.setAutoRepeat(False)
-    circleIcon = RotationCentreIcon(QPoint(0, 0), DISTANCE_BUFFER, DISTANCE_BUFFER, window)
     self.MAFilter = mdiAreaFilter()
     self.MAFilter.setMouseTracking(True)
 
