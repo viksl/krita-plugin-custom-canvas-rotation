@@ -101,7 +101,7 @@ def two_point_distance(v1, v2):
 
 class rotationCentreIcon(QWidget):
   def __init__(self, position, width, height, parent=None):
-    super.__init__(self, parent)
+    QWidget.__init__(self, parent)
     self.position = position
     self.width = width
     self.height = height
