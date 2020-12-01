@@ -122,7 +122,8 @@ def init_rotation():
   global init_offset_angle
   global cursor_init_position
   global base_vector
-
+  global circleIcon
+  
   canvas = Krita.instance().activeWindow().activeView().canvas()
   cursor_init_position = QCursor.pos()
   angle = canvas.rotation()
