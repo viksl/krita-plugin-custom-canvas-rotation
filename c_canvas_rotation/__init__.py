@@ -92,7 +92,7 @@ class RotationCentreIcon(QWidget):
     self.setWindowTitle("icon")
 
   def showAt(self, position):
-    self.move(position.pos().x() - self.width / 2, position.pos().y() - self.height / 2)
+    self.move(position.x() - self.width / 2, position.y() - self.height / 2)
     self.show()
 
   def paintEvent(self, event):
