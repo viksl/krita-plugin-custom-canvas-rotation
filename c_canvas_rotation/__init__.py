@@ -54,6 +54,7 @@ Copyright: (C) viksl
 """
 
 from krita import *
+from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 import math
 
@@ -103,14 +104,19 @@ class rotationCentreIcon(QWidget):
   def __init__(self, position, width, height, parent=None):
     QWidget.__init__(self, parent)
     self.position = position
-    self.width = width
-    self.height = height
+    self.width = int(width)
+    self.height = int(height)
+    self.setGeometry(int(position.x()), int(position.y()), int(self.width - self.width / 2), int(self.height - self.height / 2))
+    self.setWindowFlags(self.windowFlags() | QtCore.Qt.Window | QtCore.Qt.FramelessWindowHint)
+    self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+    self.setStyleSheet("background: transparent;")
+    self.setWindowTitle("icon")
 
   def paintEvent(self, event):
     self.painter = QPainter(self)
     self.painter.setRenderHints( QPainter.HighQualityAntialiasing )
     self.painter.setBrush(QColor(47, 47, 47, 150))
-    self.painter.drawEllipse(int(self.position.x()), int(self.position.y()), int(self.width - self.width / 2), int(self.height - self.height / 2))
+    self.painter.drawEllipse(0, 0, self.width, self.height)
     self.painter.end()
 
 
@@ -123,7 +129,7 @@ def init_rotation():
   global cursor_init_position
   global base_vector
   global circleIcon
-  
+
   canvas = Krita.instance().activeWindow().activeView().canvas()
   cursor_init_position = QCursor.pos()
   angle = canvas.rotation()
