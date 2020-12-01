@@ -80,11 +80,12 @@ mouse_button_pressed = False
 class RotationCentreIcon(QWidget):
   def __init__(self, position, width, height, parent=None):
     QWidget.__init__(self, parent)
+
     self.position = position
     self.width = int(width)
     self.height = int(height)
     self.setGeometry(int(position.x() - self.width / 2), int(position.y() - self.height / 2), self.width, self.height)
-    self.setWindowFlags(self.windowFlags() | QtCore.Qt.Window | QtCore.Qt.FramelessWindowHint)
+    self.setWindowFlags(self.windowFlags() | QtCore.Qt.FramelessWindowHint)
     self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
     self.setStyleSheet("background: transparent;")
     self.setWindowTitle("icon")
