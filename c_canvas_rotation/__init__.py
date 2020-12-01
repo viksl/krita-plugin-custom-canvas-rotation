@@ -80,7 +80,8 @@ circleIcon = None
 
 class RotationCentreIcon(QWidget):
   def __init__(self, position, width, height, parent=None):
-    QWidget.__init__(self, parent)
+    #QWidget.__init__(self, parent)
+    super().__init__(parent)
 
     self.position = position
     self.width = int(width)
