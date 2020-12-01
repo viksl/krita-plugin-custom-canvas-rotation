@@ -75,6 +75,7 @@ cursor_init_position = None                           # Cursor position when cus
 base_vector = [1, 0]                                  # Unit vector as reference to measure angle from
 shortcut_pressed = False
 mouse_button_pressed = False
+circleIcon = None
 
 # Class for testing (replaces a print statement as I don't know how to print on win)
 class Dialog(QDialog):
@@ -98,6 +99,21 @@ def vector_angle(v1, v2):
 def two_point_distance(v1, v2):
   return math.sqrt( math.pow(( v2.x() - v1.x() ), 2) + math.pow(( v2.y() - v1.y() ), 2)  )
 
+class rotationCentreIcon(QWidget):
+  def __init__(self, position, width, height, parent=None):
+    super.__init__(self, parent)
+    self.position = position
+    self.width = width
+    self.height = height
+
+  def paintEvent(self, event):
+    self.painter = QPainter(self)
+    self.painter.setRenderHints( QPainter.HighQualityAntialiasing )
+    self.painter.setBrush(QColor(47, 47, 47, 150))
+    self.painter.drawEllipse(self.position.x(), self.position.y(), self.width - self.width / 2, self.height - self.height / 2)
+    self.painter.end()
+
+
 def init_rotation():
   global current_active_layer
   global current_active_layer_locked_original
@@ -110,6 +126,8 @@ def init_rotation():
   canvas = Krita.instance().activeWindow().activeView().canvas()
   cursor_init_position = QCursor.pos()
   angle = canvas.rotation()
+  circleIcon = rotationCentreIcon(cursor_init_position, DISTANCE_BUFFER, DISTANCE_BUFFER)
+  circleIcon.show()
 
 def lock_active_layer():
     global current_active_layer
@@ -136,12 +154,15 @@ def stop_rotation():
   global cursor_init_position
   global base_vector
   global shortcut_pressed
+  global circleIcon
 
   shortcut_pressed = False
   cursor_init_position = None
   buffer_lock = False
   init_offset_angle = 0
   angle = 0
+  circleIcon.deleteLater()
+
   unlock_active_layer()
 
 # Reset everything back to default state to be ready for next rotation event
