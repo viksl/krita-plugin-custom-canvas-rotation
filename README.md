@@ -21,7 +21,7 @@ Copyright: (C) viksl
 
 Release Date: 25.11.2020
 
-Version: 1.1
+Version: 1.2
 
 Default shortcut: Ctrl + Alt + D + (Mouse left/middle button or Pen touch)
 
