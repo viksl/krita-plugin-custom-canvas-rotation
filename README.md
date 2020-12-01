@@ -132,7 +132,6 @@ PRESS the shortcut + press left mouse button or middle mouse button or put the p
 
 ## 6/ Possible future updates
 
-- Perhaps an icon to idicate the centre for rotation gizmo (cursor)
 - Utilize buffer area for canas rotation reset
 - Cursor icon maybe
 
