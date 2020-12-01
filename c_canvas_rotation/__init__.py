@@ -58,7 +58,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 import math
 
-DISTANCE_BUFFER = 10                                  # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
+DISTANCE_BUFFER = 100                                  # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
                                                       # Units: Pixels (screen not canvas pixels)
                                                       # Warning: Cannot be negative!
                                                       # How far (in pixels) you need to move your cursor for rotation to take effect (only initially).
@@ -106,7 +106,7 @@ class rotationCentreIcon(QWidget):
     self.position = position
     self.width = int(width)
     self.height = int(height)
-    self.setGeometry(int(position.x()), int(position.y()), int(self.width - self.width / 2), int(self.height - self.height / 2))
+    self.setGeometry(int(position.x() - self.width / 2), int(position.y() - self.height / 2), self.width, self.height)
     self.setWindowFlags(self.windowFlags() | QtCore.Qt.Window | QtCore.Qt.FramelessWindowHint)
     self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
     self.setStyleSheet("background: transparent;")
