@@ -58,7 +58,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 import math
 
-DISTANCE_BUFFER = 100                                  # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
+DISTANCE_BUFFER = 10                                  # THIS VALUE CAN BE CHANGED TO FIT YOUR NEEDS!
                                                       # Units: Pixels (screen not canvas pixels)
                                                       # Warning: Cannot be negative!
                                                       # How far (in pixels) you need to move your cursor for rotation to take effect (only initially).
@@ -76,7 +76,31 @@ cursor_init_position = None                           # Cursor position when cus
 base_vector = [1, 0]                                  # Unit vector as reference to measure angle from
 shortcut_pressed = False
 mouse_button_pressed = False
-circleIcon = None
+
+class rotationCentreIcon(QWidget):
+  def __init__(self, position, width, height, parent=None):
+    QWidget.__init__(self, parent)
+    self.position = position
+    self.width = int(width)
+    self.height = int(height)
+    self.setGeometry(int(position.x() - self.width / 2), int(position.y() - self.height / 2), self.width, self.height)
+    self.setWindowFlags(self.windowFlags() | QtCore.Qt.Window | QtCore.Qt.FramelessWindowHint)
+    self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+    self.setStyleSheet("background: transparent;")
+    self.setWindowTitle("icon")
+
+  def showAt(self, position):
+    self.move(position)
+    self.show()
+
+  def paintEvent(self, event):
+    self.painter = QPainter(self)
+    self.painter.setRenderHints( QPainter.HighQualityAntialiasing )
+    self.painter.setBrush(QColor(47, 47, 47, 150))
+    self.painter.drawEllipse(0, 0, self.width, self.height)
+    self.painter.end()
+
+circleIcon = rotationCentreIcon(QPoint(0, 0), DISTANCE_BUFFER, DISTANCE_BUFFER)
 
 # Class for testing (replaces a print statement as I don't know how to print on win)
 class Dialog(QDialog):
@@ -100,25 +124,6 @@ def vector_angle(v1, v2):
 def two_point_distance(v1, v2):
   return math.sqrt( math.pow(( v2.x() - v1.x() ), 2) + math.pow(( v2.y() - v1.y() ), 2)  )
 
-class rotationCentreIcon(QWidget):
-  def __init__(self, position, width, height, parent=None):
-    QWidget.__init__(self, parent)
-    self.position = position
-    self.width = int(width)
-    self.height = int(height)
-    self.setGeometry(int(position.x() - self.width / 2), int(position.y() - self.height / 2), self.width, self.height)
-    self.setWindowFlags(self.windowFlags() | QtCore.Qt.Window | QtCore.Qt.FramelessWindowHint)
-    self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-    self.setStyleSheet("background: transparent;")
-    self.setWindowTitle("icon")
-
-  def paintEvent(self, event):
-    self.painter = QPainter(self)
-    self.painter.setRenderHints( QPainter.HighQualityAntialiasing )
-    self.painter.setBrush(QColor(47, 47, 47, 150))
-    self.painter.drawEllipse(0, 0, self.width, self.height)
-    self.painter.end()
-
 
 def init_rotation():
   global current_active_layer
@@ -133,8 +138,7 @@ def init_rotation():
   canvas = Krita.instance().activeWindow().activeView().canvas()
   cursor_init_position = QCursor.pos()
   angle = canvas.rotation()
-  circleIcon = rotationCentreIcon(cursor_init_position, DISTANCE_BUFFER, DISTANCE_BUFFER)
-  circleIcon.show()
+  circleIcon.showAt(cursor_init_position)
 
 def lock_active_layer():
     global current_active_layer
@@ -168,7 +172,7 @@ def stop_rotation():
   buffer_lock = False
   init_offset_angle = 0
   angle = 0
-  circleIcon.deleteLater()
+  circleIcon.hide()
 
   unlock_active_layer()
 
@@ -280,7 +284,6 @@ class CustomCanvasRotationExtension(Extension):
     global shortcut_pressed
 
     shortcut_pressed = True
-
     lock_active_layer()
 
   def createActions(self, window):
