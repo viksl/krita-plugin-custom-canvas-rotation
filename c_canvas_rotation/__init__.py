@@ -92,13 +92,14 @@ class RotationCentreIcon(QWidget):
     self.setWindowTitle("icon")
 
   def showAt(self, position):
-    self.move(position)
+    self.move(position.pos().x() - self.width / 2, position.pos().y() - self.height / 2)
     self.show()
 
   def paintEvent(self, event):
     self.painter = QPainter(self)
     self.painter.setRenderHints( QPainter.HighQualityAntialiasing )
-    self.painter.setBrush(QColor(47, 47, 47, 150))
+    self.painter.setPen( QPen(QColor(255, 255, 255, 150), 1) )
+    self.painter.setBrush( QColor(47, 47, 47, 150) )
     self.painter.drawEllipse(0, 0, self.width, self.height)
     self.painter.end()
 
