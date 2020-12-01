@@ -80,8 +80,7 @@ circleIcon = None
 
 class RotationCentreIcon(QWidget):
   def __init__(self, position, width, height, parent=None):
-    #QWidget.__init__(self, parent)
-    super().__init__(parent)
+    QWidget.__init__(self, parent)
 
     self.position = position
     self.width = int(width)
@@ -139,8 +138,6 @@ def init_rotation():
   canvas = Krita.instance().activeWindow().activeView().canvas()
   cursor_init_position = QCursor.pos()
   angle = canvas.rotation()
-  if circleIcon is None:
-    circleIcon = RotationCentreIcon(QPoint(0, 0), DISTANCE_BUFFER, DISTANCE_BUFFER, Krita.instance().activeWindow())
   circleIcon.showAt(cursor_init_position)
 
 def lock_active_layer():
@@ -290,9 +287,13 @@ class CustomCanvasRotationExtension(Extension):
     lock_active_layer()
 
   def createActions(self, window):
+    global circleIcon
+
     self.c_canvas_rotation = window.createAction("c_canvas_rotation", "Custom Canvas Rotation")
     self.c_canvas_rotation.triggered.connect(self.rotation_trigger)
     self.c_canvas_rotation.setAutoRepeat(False)
+    if circleIcon is None:
+      circleIcon = RotationCentreIcon(QPoint(0, 0), DISTANCE_BUFFER, DISTANCE_BUFFER, window.qwindow())
     self.MAFilter = mdiAreaFilter()
     self.MAFilter.setMouseTracking(True)
 
