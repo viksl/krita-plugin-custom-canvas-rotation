@@ -28,7 +28,7 @@ Default shortcut: Ctrl + Alt + D + (Mouse left/middle button or Pen touch)
 ## 1/ Description:
 
   - Free plugin for Krita (<https://krita.org>)
-  - Youtube video (<https://youtu.be/tfZ2WgdKL-0>)
+  - Youtube video (<https://youtu.be/-rUf6Qz3nwU>)
 
   Krita's canvas rotation's gizmo is currently bound to the center, which means
   no matter where on screen your cursor is the gizmo remains in centre.
